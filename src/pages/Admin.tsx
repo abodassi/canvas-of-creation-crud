@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,20 +9,62 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from '@/components/ui/label';
 import { Trash2, Edit, Plus, Save, X, Mail, Phone, MapPin, Linkedin, Github, Twitter } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import { personalInfo, projects, experiences, testimonials, contactInfo } from '../data/portfolioData';
+import { personalInfo as defaultPersonalInfo, projects as defaultProjects, experiences as defaultExperiences, testimonials as defaultTestimonials, contactInfo as defaultContactInfo } from '../data/portfolioData';
 import { PersonalInfo, Project, Experience, Testimonial, ContactInfo } from '../types';
 
 const Admin = () => {
   const { toast } = useToast();
-  const [personalData, setPersonalData] = useState<PersonalInfo>(personalInfo);
-  const [projectsData, setProjectsData] = useState<Project[]>(projects);
-  const [experiencesData, setExperiencesData] = useState<Experience[]>(experiences);
-  const [testimonialsData, setTestimonialsData] = useState<Testimonial[]>(testimonials);
-  const [contactData, setContactData] = useState<ContactInfo>(contactInfo);
+  
+  // Initialize state from localStorage or default data
+  const [personalData, setPersonalData] = useState<PersonalInfo>(() => {
+    const saved = localStorage.getItem('personalInfo');
+    return saved ? JSON.parse(saved) : defaultPersonalInfo;
+  });
+  
+  const [projectsData, setProjectsData] = useState<Project[]>(() => {
+    const saved = localStorage.getItem('projects');
+    return saved ? JSON.parse(saved) : defaultProjects;
+  });
+  
+  const [experiencesData, setExperiencesData] = useState<Experience[]>(() => {
+    const saved = localStorage.getItem('experiences');
+    return saved ? JSON.parse(saved) : defaultExperiences;
+  });
+  
+  const [testimonialsData, setTestimonialsData] = useState<Testimonial[]>(() => {
+    const saved = localStorage.getItem('testimonials');
+    return saved ? JSON.parse(saved) : defaultTestimonials;
+  });
+  
+  const [contactData, setContactData] = useState<ContactInfo>(() => {
+    const saved = localStorage.getItem('contactInfo');
+    return saved ? JSON.parse(saved) : defaultContactInfo;
+  });
+  
+  // Save to localStorage whenever data changes
+  useEffect(() => {
+    localStorage.setItem('personalInfo', JSON.stringify(personalData));
+  }, [personalData]);
+  
+  useEffect(() => {
+    localStorage.setItem('projects', JSON.stringify(projectsData));
+  }, [projectsData]);
+  
+  useEffect(() => {
+    localStorage.setItem('experiences', JSON.stringify(experiencesData));
+  }, [experiencesData]);
+  
+  useEffect(() => {
+    localStorage.setItem('testimonials', JSON.stringify(testimonialsData));
+  }, [testimonialsData]);
+  
+  useEffect(() => {
+    localStorage.setItem('contactInfo', JSON.stringify(contactData));
+  }, [contactData]);
   
   // Personal Info editing
   const [editingPersonal, setEditingPersonal] = useState(false);
-  const [tempPersonalData, setTempPersonalData] = useState<PersonalInfo>(personalInfo);
+  const [tempPersonalData, setTempPersonalData] = useState<PersonalInfo>(personalData);
   
   // Project editing
   const [editingProject, setEditingProject] = useState<string | null>(null);
@@ -63,7 +106,20 @@ const Admin = () => {
 
   // Contact Info editing
   const [editingContact, setEditingContact] = useState(false);
-  const [tempContactData, setTempContactData] = useState<ContactInfo>(contactInfo);
+  const [tempContactData, setTempContactData] = useState<ContactInfo>(contactData);
+
+  // Reset temp data when editing state changes
+  useEffect(() => {
+    if (editingPersonal) {
+      setTempPersonalData(personalData);
+    }
+  }, [editingPersonal, personalData]);
+  
+  useEffect(() => {
+    if (editingContact) {
+      setTempContactData(contactData);
+    }
+  }, [editingContact, contactData]);
 
   // Helper functions
   const generateId = () => Math.random().toString(36).substring(2, 9);
