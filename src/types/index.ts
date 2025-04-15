@@ -40,3 +40,25 @@ export interface PersonalInfo {
   bio: string;
   imageUrl: string;
 }
+
+export interface Vision {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl?: string;
+}
+
+export interface Skill {
+  id: string;
+  name: string;
+  proficiency: number; // 0-100
+  category?: string;
+}
+
+export interface Company {
+  id: string;
+  name: string;
+  description?: string;
+  logoUrl: string;
+  website?: string;
+}

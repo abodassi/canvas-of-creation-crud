@@ -2,8 +2,11 @@
 import React from 'react';
 import Header from '../components/Header';
 import Introduction from '../components/Introduction';
+import Vision from '../components/Vision';
+import Skills from '../components/Skills';
 import Projects from '../components/Projects';
 import ExperienceSection from '../components/Experience';
+import Companies from '../components/Companies';
 import Testimonials from '../components/Testimonials';
 import Contact from '../components/Contact';
 import { usePortfolioData } from '../components/DataProvider';
@@ -16,8 +19,11 @@ const Index = () => {
       <Header />
       <main>
         <Introduction />
+        <Vision />
+        <Skills />
         <Projects />
         <ExperienceSection />
+        <Companies />
         <Testimonials />
         <Contact />
       </main>

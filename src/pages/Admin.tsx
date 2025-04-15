@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,12 +8,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from '@/components/ui/label';
 import { Trash2, Edit, Plus, Save, X, Mail, Phone, MapPin, Linkedin, Github, Twitter } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import { personalInfo as defaultPersonalInfo, projects as defaultProjects, experiences as defaultExperiences, testimonials as defaultTestimonials, contactInfo as defaultContactInfo } from '../data/portfolioData';
-import { PersonalInfo, Project, Experience, Testimonial, ContactInfo } from '../types';
+import { personalInfo as defaultPersonalInfo, projects as defaultProjects, experiences as defaultExperiences, 
+         testimonials as defaultTestimonials, contactInfo as defaultContactInfo, vision as defaultVision,
+         skills as defaultSkills, companies as defaultCompanies } from '../data/portfolioData';
+import { PersonalInfo, Project, Experience, Testimonial, ContactInfo, Vision, Skill, Company } from '../types';
 
 const Admin = () => {
   const { toast } = useToast();
-  
   // Initialize state from localStorage or default data
   const [personalData, setPersonalData] = useState<PersonalInfo>(() => {
     const saved = localStorage.getItem('personalInfo');
@@ -41,6 +41,21 @@ const Admin = () => {
     return saved ? JSON.parse(saved) : defaultContactInfo;
   });
   
+  const [visionData, setVisionData] = useState<Vision[]>(() => {
+    const saved = localStorage.getItem('vision');
+    return saved ? JSON.parse(saved) : defaultVision;
+  });
+  
+  const [skillsData, setSkillsData] = useState<Skill[]>(() => {
+    const saved = localStorage.getItem('skills');
+    return saved ? JSON.parse(saved) : defaultSkills;
+  });
+  
+  const [companiesData, setCompaniesData] = useState<Company[]>(() => {
+    const saved = localStorage.getItem('companies');
+    return saved ? JSON.parse(saved) : defaultCompanies;
+  });
+  
   // Save to localStorage whenever data changes
   useEffect(() => {
     localStorage.setItem('personalInfo', JSON.stringify(personalData));
@@ -61,6 +76,18 @@ const Admin = () => {
   useEffect(() => {
     localStorage.setItem('contactInfo', JSON.stringify(contactData));
   }, [contactData]);
+  
+  useEffect(() => {
+    localStorage.setItem('vision', JSON.stringify(visionData));
+  }, [visionData]);
+  
+  useEffect(() => {
+    localStorage.setItem('skills', JSON.stringify(skillsData));
+  }, [skillsData]);
+  
+  useEffect(() => {
+    localStorage.setItem('companies', JSON.stringify(companiesData));
+  }, [companiesData]);
   
   // Personal Info editing
   const [editingPersonal, setEditingPersonal] = useState(false);
@@ -107,19 +134,40 @@ const Admin = () => {
   // Contact Info editing
   const [editingContact, setEditingContact] = useState(false);
   const [tempContactData, setTempContactData] = useState<ContactInfo>(contactData);
-
-  // Reset temp data when editing state changes
-  useEffect(() => {
-    if (editingPersonal) {
-      setTempPersonalData(personalData);
-    }
-  }, [editingPersonal, personalData]);
   
-  useEffect(() => {
-    if (editingContact) {
-      setTempContactData(contactData);
-    }
-  }, [editingContact, contactData]);
+  // Vision editing
+  const [editingVision, setEditingVision] = useState<string | null>(null);
+  const [tempVision, setTempVision] = useState<Vision | null>(null);
+  const [showAddVision, setShowAddVision] = useState(false);
+  const [newVision, setNewVision] = useState<Vision>({
+    id: '',
+    title: '',
+    description: '',
+    imageUrl: '/placeholder.svg'
+  });
+
+  // Skills editing
+  const [editingSkill, setEditingSkill] = useState<string | null>(null);
+  const [tempSkill, setTempSkill] = useState<Skill | null>(null);
+  const [showAddSkill, setShowAddSkill] = useState(false);
+  const [newSkill, setNewSkill] = useState<Skill>({
+    id: '',
+    name: '',
+    proficiency: 50,
+    category: ''
+  });
+
+  // Companies editing
+  const [editingCompany, setEditingCompany] = useState<string | null>(null);
+  const [tempCompany, setTempCompany] = useState<Company | null>(null);
+  const [showAddCompany, setShowAddCompany] = useState(false);
+  const [newCompany, setNewCompany] = useState<Company>({
+    id: '',
+    name: '',
+    description: '',
+    logoUrl: '/placeholder.svg',
+    website: ''
+  });
 
   // Helper functions
   const generateId = () => Math.random().toString(36).substring(2, 9);
@@ -271,6 +319,130 @@ const Admin = () => {
       description: "Your contact information has been updated successfully."
     });
   };
+  
+  // Vision handlers
+  const handleAddVision = () => {
+    const visionWithId = { ...newVision, id: generateId() };
+    setVisionData([...visionData, visionWithId]);
+    setShowAddVision(false);
+    setNewVision({
+      id: '',
+      title: '',
+      description: '',
+      imageUrl: '/placeholder.svg'
+    });
+    toast({
+      title: "Vision added",
+      description: "Your new vision has been added successfully."
+    });
+  };
+
+  const handleEditVision = (vision: Vision) => {
+    setEditingVision(vision.id);
+    setTempVision({ ...vision });
+  };
+
+  const handleUpdateVision = () => {
+    if (!tempVision) return;
+    setVisionData(visionData.map(v => v.id === tempVision.id ? tempVision : v));
+    setEditingVision(null);
+    setTempVision(null);
+    toast({
+      title: "Vision updated",
+      description: "Your vision has been updated successfully."
+    });
+  };
+
+  const handleDeleteVision = (id: string) => {
+    setVisionData(visionData.filter(v => v.id !== id));
+    toast({
+      title: "Vision deleted",
+      description: "Your vision has been deleted successfully."
+    });
+  };
+
+  // Skill handlers
+  const handleAddSkill = () => {
+    const skillWithId = { ...newSkill, id: generateId() };
+    setSkillsData([...skillsData, skillWithId]);
+    setShowAddSkill(false);
+    setNewSkill({
+      id: '',
+      name: '',
+      proficiency: 50,
+      category: ''
+    });
+    toast({
+      title: "Skill added",
+      description: "Your new skill has been added successfully."
+    });
+  };
+
+  const handleEditSkill = (skill: Skill) => {
+    setEditingSkill(skill.id);
+    setTempSkill({ ...skill });
+  };
+
+  const handleUpdateSkill = () => {
+    if (!tempSkill) return;
+    setSkillsData(skillsData.map(s => s.id === tempSkill.id ? tempSkill : s));
+    setEditingSkill(null);
+    setTempSkill(null);
+    toast({
+      title: "Skill updated",
+      description: "Your skill has been updated successfully."
+    });
+  };
+
+  const handleDeleteSkill = (id: string) => {
+    setSkillsData(skillsData.filter(s => s.id !== id));
+    toast({
+      title: "Skill deleted",
+      description: "Your skill has been deleted successfully."
+    });
+  };
+
+  // Company handlers
+  const handleAddCompany = () => {
+    const companyWithId = { ...newCompany, id: generateId() };
+    setCompaniesData([...companiesData, companyWithId]);
+    setShowAddCompany(false);
+    setNewCompany({
+      id: '',
+      name: '',
+      description: '',
+      logoUrl: '/placeholder.svg',
+      website: ''
+    });
+    toast({
+      title: "Company added",
+      description: "Your new company has been added successfully."
+    });
+  };
+
+  const handleEditCompany = (company: Company) => {
+    setEditingCompany(company.id);
+    setTempCompany({ ...company });
+  };
+
+  const handleUpdateCompany = () => {
+    if (!tempCompany) return;
+    setCompaniesData(companiesData.map(c => c.id === tempCompany.id ? tempCompany : c));
+    setEditingCompany(null);
+    setTempCompany(null);
+    toast({
+      title: "Company updated",
+      description: "Your company has been updated successfully."
+    });
+  };
+
+  const handleDeleteCompany = (id: string) => {
+    setCompaniesData(companiesData.filter(c => c.id !== id));
+    toast({
+      title: "Company deleted",
+      description: "Your company has been deleted successfully."
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -282,8 +454,11 @@ const Admin = () => {
           <Tabs defaultValue="personal">
             <TabsList className="mb-6">
               <TabsTrigger value="personal">Personal Info</TabsTrigger>
+              <TabsTrigger value="vision">Vision</TabsTrigger>
+              <TabsTrigger value="skills">Skills</TabsTrigger>
               <TabsTrigger value="projects">Projects</TabsTrigger>
               <TabsTrigger value="experience">Experience</TabsTrigger>
+              <TabsTrigger value="companies">Companies</TabsTrigger>
               <TabsTrigger value="testimonials">Testimonials</TabsTrigger>
               <TabsTrigger value="contact">Contact</TabsTrigger>
             </TabsList>
@@ -364,6 +539,280 @@ const Admin = () => {
                     <Button onClick={() => setEditingPersonal(true)}>Edit Information</Button>
                   )}
                 </CardFooter>
+              </Card>
+            </TabsContent>
+            
+            {/* Vision Tab */}
+            <TabsContent value="vision">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div>
+                    <CardTitle>Vision</CardTitle>
+                    <CardDescription>Manage your vision statements</CardDescription>
+                  </div>
+                  {!showAddVision && (
+                    <Button onClick={() => setShowAddVision(true)} size="sm">
+                      <Plus className="mr-1 h-4 w-4" /> Add Vision
+                    </Button>
+                  )}
+                </CardHeader>
+                <CardContent>
+                  {showAddVision && (
+                    <div className="mb-8 bg-gray-50 p-4 border rounded-lg">
+                      <h3 className="text-lg font-medium mb-4">Add New Vision</h3>
+                      <div className="space-y-4">
+                        <div>
+                          <Label htmlFor="new-vision-title">Title</Label>
+                          <Input 
+                            id="new-vision-title"
+                            value={newVision.title} 
+                            onChange={(e) => setNewVision({...newVision, title: e.target.value})}
+                            placeholder="Vision title" 
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="new-vision-description">Description</Label>
+                          <Textarea 
+                            id="new-vision-description"
+                            value={newVision.description} 
+                            onChange={(e) => setNewVision({...newVision, description: e.target.value})} 
+                            placeholder="Vision description"
+                          />
+                        </div>
+                        <div className="flex justify-end space-x-2 pt-2">
+                          <Button variant="outline" onClick={() => setShowAddVision(false)}>Cancel</Button>
+                          <Button onClick={handleAddVision}>Add Vision</Button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="space-y-6">
+                    {visionData.map(vision => (
+                      <div key={vision.id} className="border rounded-lg p-4">
+                        {editingVision === vision.id && tempVision ? (
+                          <div className="space-y-4">
+                            <div>
+                              <Label htmlFor={`title-${vision.id}`}>Title</Label>
+                              <Input 
+                                id={`title-${vision.id}`}
+                                value={tempVision.title} 
+                                onChange={(e) => setTempVision({...tempVision, title: e.target.value})} 
+                              />
+                            </div>
+                            <div>
+                              <Label htmlFor={`description-${vision.id}`}>Description</Label>
+                              <Textarea 
+                                id={`description-${vision.id}`}
+                                value={tempVision.description} 
+                                onChange={(e) => setTempVision({...tempVision, description: e.target.value})} 
+                              />
+                            </div>
+                            <div className="flex justify-end space-x-2 pt-2">
+                              <Button 
+                                variant="outline" 
+                                onClick={() => {
+                                  setEditingVision(null);
+                                  setTempVision(null);
+                                }}
+                              >
+                                <X className="mr-1 h-4 w-4" /> Cancel
+                              </Button>
+                              <Button onClick={handleUpdateVision}>
+                                <Save className="mr-1 h-4 w-4" /> Save
+                              </Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <h3 className="text-lg font-medium">{vision.title}</h3>
+                              </div>
+                              <div className="flex space-x-2">
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  onClick={() => handleEditVision(vision)}
+                                >
+                                  <Edit className="h-4 w-4" />
+                                </Button>
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  onClick={() => handleDeleteVision(vision.id)}
+                                  className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </div>
+                            <p className="mt-2 text-gray-600">{vision.description}</p>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    {visionData.length === 0 && (
+                      <p className="text-center py-8 text-gray-500">No vision statements added yet.</p>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            {/* Skills Tab */}
+            <TabsContent value="skills">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div>
+                    <CardTitle>Skills</CardTitle>
+                    <CardDescription>Manage your professional skills</CardDescription>
+                  </div>
+                  {!showAddSkill && (
+                    <Button onClick={() => setShowAddSkill(true)} size="sm">
+                      <Plus className="mr-1 h-4 w-4" /> Add Skill
+                    </Button>
+                  )}
+                </CardHeader>
+                <CardContent>
+                  {showAddSkill && (
+                    <div className="mb-8 bg-gray-50 p-4 border rounded-lg">
+                      <h3 className="text-lg font-medium mb-4">Add New Skill</h3>
+                      <div className="space-y-4">
+                        <div>
+                          <Label htmlFor="new-skill-name">Skill Name</Label>
+                          <Input 
+                            id="new-skill-name"
+                            value={newSkill.name} 
+                            onChange={(e) => setNewSkill({...newSkill, name: e.target.value})}
+                            placeholder="e.g., Python, SQL, etc." 
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="new-skill-category">Category</Label>
+                          <Input 
+                            id="new-skill-category"
+                            value={newSkill.category || ''} 
+                            onChange={(e) => setNewSkill({...newSkill, category: e.target.value})} 
+                            placeholder="e.g., Programming, Database, etc."
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="new-skill-proficiency">
+                            Proficiency: {newSkill.proficiency}%
+                          </Label>
+                          <Input 
+                            id="new-skill-proficiency"
+                            type="range"
+                            min="0"
+                            max="100"
+                            value={newSkill.proficiency} 
+                            onChange={(e) => setNewSkill({...newSkill, proficiency: parseInt(e.target.value)})} 
+                          />
+                        </div>
+                        <div className="flex justify-end space-x-2 pt-2">
+                          <Button variant="outline" onClick={() => setShowAddSkill(false)}>Cancel</Button>
+                          <Button onClick={handleAddSkill}>Add Skill</Button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="space-y-6">
+                    {skillsData.map(skill => (
+                      <div key={skill.id} className="border rounded-lg p-4">
+                        {editingSkill === skill.id && tempSkill ? (
+                          <div className="space-y-4">
+                            <div>
+                              <Label htmlFor={`name-${skill.id}`}>Skill Name</Label>
+                              <Input 
+                                id={`name-${skill.id}`}
+                                value={tempSkill.name} 
+                                onChange={(e) => setTempSkill({...tempSkill, name: e.target.value})} 
+                              />
+                            </div>
+                            <div>
+                              <Label htmlFor={`category-${skill.id}`}>Category</Label>
+                              <Input 
+                                id={`category-${skill.id}`}
+                                value={tempSkill.category || ''} 
+                                onChange={(e) => setTempSkill({...tempSkill, category: e.target.value})} 
+                              />
+                            </div>
+                            <div>
+                              <Label htmlFor={`proficiency-${skill.id}`}>
+                                Proficiency: {tempSkill.proficiency}%
+                              </Label>
+                              <Input 
+                                id={`proficiency-${skill.id}`}
+                                type="range"
+                                min="0"
+                                max="100"
+                                value={tempSkill.proficiency} 
+                                onChange={(e) => setTempSkill({...tempSkill, proficiency: parseInt(e.target.value)})} 
+                              />
+                            </div>
+                            <div className="flex justify-end space-x-2 pt-2">
+                              <Button 
+                                variant="outline" 
+                                onClick={() => {
+                                  setEditingSkill(null);
+                                  setTempSkill(null);
+                                }}
+                              >
+                                <X className="mr-1 h-4 w-4" /> Cancel
+                              </Button>
+                              <Button onClick={handleUpdateSkill}>
+                                <Save className="mr-1 h-4 w-4" /> Save
+                              </Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <h3 className="text-lg font-medium">{skill.name}</h3>
+                                {skill.category && <p className="text-sm text-gray-500">{skill.category}</p>}
+                              </div>
+                              <div className="flex space-x-2">
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  onClick={() => handleEditSkill(skill)}
+                                >
+                                  <Edit className="h-4 w-4" />
+                                </Button>
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  onClick={() => handleDeleteSkill(skill.id)}
+                                  className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </div>
+                            <div className="mt-2">
+                              <div className="flex justify-between text-sm">
+                                <span>Proficiency</span>
+                                <span>{skill.proficiency}%</span>
+                              </div>
+                              <div className="w-full bg-gray-200 rounded-full h-2.5 mt-1">
+                                <div 
+                                  className="bg-primary h-2.5 rounded-full" 
+                                  style={{ width: `${skill.proficiency}%` }}
+                                ></div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    {skillsData.length === 0 && (
+                      <p className="text-center py-8 text-gray-500">No skills added yet.</p>
+                    )}
+                  </div>
+                </CardContent>
               </Card>
             </TabsContent>
             
@@ -467,586 +916,4 @@ const Admin = () => {
                               <Label htmlFor={`url-${project.id}`}>Project URL</Label>
                               <Input 
                                 id={`url-${project.id}`}
-                                value={tempProject.projectUrl} 
-                                onChange={(e) => setTempProject({...tempProject, projectUrl: e.target.value})} 
-                              />
-                            </div>
-                            <div>
-                              <Label htmlFor={`image-${project.id}`}>Image URL</Label>
-                              <Input 
-                                id={`image-${project.id}`}
-                                value={tempProject.imageUrl} 
-                                onChange={(e) => setTempProject({...tempProject, imageUrl: e.target.value})} 
-                              />
-                            </div>
-                            <div>
-                              <Label htmlFor={`technologies-${project.id}`}>Technologies (comma-separated)</Label>
-                              <Input 
-                                id={`technologies-${project.id}`}
-                                value={tempProject.technologies.join(', ')} 
-                                onChange={(e) => setTempProject({
-                                  ...tempProject, 
-                                  technologies: e.target.value.split(',').map(tech => tech.trim()).filter(Boolean)
-                                })} 
-                              />
-                            </div>
-                            <div className="flex justify-end space-x-2 pt-2">
-                              <Button 
-                                variant="outline" 
-                                onClick={() => {
-                                  setEditingProject(null);
-                                  setTempProject(null);
-                                }}
-                              >
-                                <X className="mr-1 h-4 w-4" /> Cancel
-                              </Button>
-                              <Button onClick={handleUpdateProject}>
-                                <Save className="mr-1 h-4 w-4" /> Save
-                              </Button>
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="flex flex-col md:flex-row">
-                            <div className="md:w-1/3 h-40 bg-gray-100">
-                              <img 
-                                src={project.imageUrl} 
-                                alt={project.title} 
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                            <div className="p-4 md:w-2/3">
-                              <div className="flex justify-between items-start">
-                                <h3 className="text-lg font-medium">{project.title}</h3>
-                                <div className="flex space-x-2">
-                                  <Button 
-                                    variant="ghost" 
-                                    size="sm" 
-                                    onClick={() => handleEditProject(project)}
-                                  >
-                                    <Edit className="h-4 w-4" />
-                                  </Button>
-                                  <Button 
-                                    variant="ghost" 
-                                    size="sm" 
-                                    onClick={() => handleDeleteProject(project.id)}
-                                    className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                                  >
-                                    <Trash2 className="h-4 w-4" />
-                                  </Button>
-                                </div>
-                              </div>
-                              <p className="text-gray-600 text-sm mt-1 line-clamp-2">{project.description}</p>
-                              <div className="mt-2">
-                                <a 
-                                  href={project.projectUrl} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer" 
-                                  className="text-sm text-primary hover:underline"
-                                >
-                                  {project.projectUrl}
-                                </a>
-                              </div>
-                              <div className="mt-2 flex flex-wrap gap-1">
-                                {project.technologies.map((tech, index) => (
-                                  <span 
-                                    key={index} 
-                                    className="px-2 py-0.5 text-xs bg-primary/10 text-primary rounded-full"
-                                  >
-                                    {tech}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                    {projectsData.length === 0 && (
-                      <p className="text-center py-8 text-gray-500">No projects added yet.</p>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            
-            {/* Experience Tab */}
-            <TabsContent value="experience">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <div>
-                    <CardTitle>Work Experience</CardTitle>
-                    <CardDescription>Manage your work history</CardDescription>
-                  </div>
-                  {!showAddExperience && (
-                    <Button onClick={() => setShowAddExperience(true)} size="sm">
-                      <Plus className="mr-1 h-4 w-4" /> Add Experience
-                    </Button>
-                  )}
-                </CardHeader>
-                <CardContent>
-                  {showAddExperience && (
-                    <div className="mb-8 bg-gray-50 p-4 border rounded-lg">
-                      <h3 className="text-lg font-medium mb-4">Add New Experience</h3>
-                      <div className="space-y-4">
-                        <div>
-                          <Label htmlFor="new-company">Company</Label>
-                          <Input 
-                            id="new-company"
-                            value={newExperience.company} 
-                            onChange={(e) => setNewExperience({...newExperience, company: e.target.value})}
-                            placeholder="Company name" 
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="new-position">Position</Label>
-                          <Input 
-                            id="new-position"
-                            value={newExperience.position} 
-                            onChange={(e) => setNewExperience({...newExperience, position: e.target.value})} 
-                            placeholder="Your job title"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="new-duration">Duration</Label>
-                          <Input 
-                            id="new-duration"
-                            value={newExperience.duration} 
-                            onChange={(e) => setNewExperience({...newExperience, duration: e.target.value})} 
-                            placeholder="2020 - Present"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="new-exp-description">Description</Label>
-                          <Textarea 
-                            id="new-exp-description"
-                            value={newExperience.description} 
-                            onChange={(e) => setNewExperience({...newExperience, description: e.target.value})} 
-                            placeholder="Describe your responsibilities and achievements"
-                          />
-                        </div>
-                        <div className="flex justify-end space-x-2 pt-2">
-                          <Button variant="outline" onClick={() => setShowAddExperience(false)}>Cancel</Button>
-                          <Button onClick={handleAddExperience}>Add Experience</Button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  
-                  <div className="space-y-6">
-                    {experiencesData.map(experience => (
-                      <div key={experience.id} className="border rounded-lg p-4">
-                        {editingExperience === experience.id && tempExperience ? (
-                          <div className="space-y-4">
-                            <div>
-                              <Label htmlFor={`company-${experience.id}`}>Company</Label>
-                              <Input 
-                                id={`company-${experience.id}`}
-                                value={tempExperience.company} 
-                                onChange={(e) => setTempExperience({...tempExperience, company: e.target.value})} 
-                              />
-                            </div>
-                            <div>
-                              <Label htmlFor={`position-${experience.id}`}>Position</Label>
-                              <Input 
-                                id={`position-${experience.id}`}
-                                value={tempExperience.position} 
-                                onChange={(e) => setTempExperience({...tempExperience, position: e.target.value})} 
-                              />
-                            </div>
-                            <div>
-                              <Label htmlFor={`duration-${experience.id}`}>Duration</Label>
-                              <Input 
-                                id={`duration-${experience.id}`}
-                                value={tempExperience.duration} 
-                                onChange={(e) => setTempExperience({...tempExperience, duration: e.target.value})} 
-                              />
-                            </div>
-                            <div>
-                              <Label htmlFor={`description-${experience.id}`}>Description</Label>
-                              <Textarea 
-                                id={`description-${experience.id}`}
-                                value={tempExperience.description} 
-                                onChange={(e) => setTempExperience({...tempExperience, description: e.target.value})} 
-                              />
-                            </div>
-                            <div className="flex justify-end space-x-2 pt-2">
-                              <Button 
-                                variant="outline" 
-                                onClick={() => {
-                                  setEditingExperience(null);
-                                  setTempExperience(null);
-                                }}
-                              >
-                                <X className="mr-1 h-4 w-4" /> Cancel
-                              </Button>
-                              <Button onClick={handleUpdateExperience}>
-                                <Save className="mr-1 h-4 w-4" /> Save
-                              </Button>
-                            </div>
-                          </div>
-                        ) : (
-                          <div>
-                            <div className="flex justify-between items-start">
-                              <div>
-                                <h3 className="text-lg font-medium">{experience.position}</h3>
-                                <p className="text-gray-700">{experience.company}</p>
-                                <p className="text-sm text-gray-500">{experience.duration}</p>
-                              </div>
-                              <div className="flex space-x-2">
-                                <Button 
-                                  variant="ghost" 
-                                  size="sm" 
-                                  onClick={() => handleEditExperience(experience)}
-                                >
-                                  <Edit className="h-4 w-4" />
-                                </Button>
-                                <Button 
-                                  variant="ghost" 
-                                  size="sm" 
-                                  onClick={() => handleDeleteExperience(experience.id)}
-                                  className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                                >
-                                  <Trash2 className="h-4 w-4" />
-                                </Button>
-                              </div>
-                            </div>
-                            <p className="mt-3 text-gray-600">{experience.description}</p>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                    {experiencesData.length === 0 && (
-                      <p className="text-center py-8 text-gray-500">No work experience added yet.</p>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            
-            {/* Testimonials Tab */}
-            <TabsContent value="testimonials">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <div>
-                    <CardTitle>Testimonials</CardTitle>
-                    <CardDescription>Manage testimonials from colleagues and clients</CardDescription>
-                  </div>
-                  {!showAddTestimonial && (
-                    <Button onClick={() => setShowAddTestimonial(true)} size="sm">
-                      <Plus className="mr-1 h-4 w-4" /> Add Testimonial
-                    </Button>
-                  )}
-                </CardHeader>
-                <CardContent>
-                  {showAddTestimonial && (
-                    <div className="mb-8 bg-gray-50 p-4 border rounded-lg">
-                      <h3 className="text-lg font-medium mb-4">Add New Testimonial</h3>
-                      <div className="space-y-4">
-                        <div>
-                          <Label htmlFor="new-name">Name</Label>
-                          <Input 
-                            id="new-name"
-                            value={newTestimonial.name} 
-                            onChange={(e) => setNewTestimonial({...newTestimonial, name: e.target.value})}
-                            placeholder="Person's name" 
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="new-position">Position</Label>
-                          <Input 
-                            id="new-position"
-                            value={newTestimonial.position} 
-                            onChange={(e) => setNewTestimonial({...newTestimonial, position: e.target.value})} 
-                            placeholder="Their job title"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="new-company">Company</Label>
-                          <Input 
-                            id="new-company"
-                            value={newTestimonial.company} 
-                            onChange={(e) => setNewTestimonial({...newTestimonial, company: e.target.value})} 
-                            placeholder="Their company"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="new-quote">Quote</Label>
-                          <Textarea 
-                            id="new-quote"
-                            value={newTestimonial.quote} 
-                            onChange={(e) => setNewTestimonial({...newTestimonial, quote: e.target.value})} 
-                            placeholder="Their testimonial about you"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="new-image">Image URL</Label>
-                          <Input 
-                            id="new-image"
-                            value={newTestimonial.imageUrl} 
-                            onChange={(e) => setNewTestimonial({...newTestimonial, imageUrl: e.target.value})} 
-                            placeholder="/placeholder.svg"
-                          />
-                        </div>
-                        <div className="flex justify-end space-x-2 pt-2">
-                          <Button variant="outline" onClick={() => setShowAddTestimonial(false)}>Cancel</Button>
-                          <Button onClick={handleAddTestimonial}>Add Testimonial</Button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  
-                  <div className="space-y-6">
-                    {testimonialsData.map(testimonial => (
-                      <div key={testimonial.id} className="border rounded-lg p-4">
-                        {editingTestimonial === testimonial.id && tempTestimonial ? (
-                          <div className="space-y-4">
-                            <div>
-                              <Label htmlFor={`name-${testimonial.id}`}>Name</Label>
-                              <Input 
-                                id={`name-${testimonial.id}`}
-                                value={tempTestimonial.name} 
-                                onChange={(e) => setTempTestimonial({...tempTestimonial, name: e.target.value})} 
-                              />
-                            </div>
-                            <div>
-                              <Label htmlFor={`position-${testimonial.id}`}>Position</Label>
-                              <Input 
-                                id={`position-${testimonial.id}`}
-                                value={tempTestimonial.position} 
-                                onChange={(e) => setTempTestimonial({...tempTestimonial, position: e.target.value})} 
-                              />
-                            </div>
-                            <div>
-                              <Label htmlFor={`company-${testimonial.id}`}>Company</Label>
-                              <Input 
-                                id={`company-${testimonial.id}`}
-                                value={tempTestimonial.company} 
-                                onChange={(e) => setTempTestimonial({...tempTestimonial, company: e.target.value})} 
-                              />
-                            </div>
-                            <div>
-                              <Label htmlFor={`quote-${testimonial.id}`}>Quote</Label>
-                              <Textarea 
-                                id={`quote-${testimonial.id}`}
-                                value={tempTestimonial.quote} 
-                                onChange={(e) => setTempTestimonial({...tempTestimonial, quote: e.target.value})} 
-                              />
-                            </div>
-                            <div>
-                              <Label htmlFor={`image-${testimonial.id}`}>Image URL</Label>
-                              <Input 
-                                id={`image-${testimonial.id}`}
-                                value={tempTestimonial.imageUrl} 
-                                onChange={(e) => setTempTestimonial({...tempTestimonial, imageUrl: e.target.value})} 
-                              />
-                            </div>
-                            <div className="flex justify-end space-x-2 pt-2">
-                              <Button 
-                                variant="outline" 
-                                onClick={() => {
-                                  setEditingTestimonial(null);
-                                  setTempTestimonial(null);
-                                }}
-                              >
-                                <X className="mr-1 h-4 w-4" /> Cancel
-                              </Button>
-                              <Button onClick={handleUpdateTestimonial}>
-                                <Save className="mr-1 h-4 w-4" /> Save
-                              </Button>
-                            </div>
-                          </div>
-                        ) : (
-                          <div>
-                            <div className="flex items-start justify-between">
-                              <div className="flex items-center">
-                                <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-100 mr-4">
-                                  <img 
-                                    src={testimonial.imageUrl} 
-                                    alt={testimonial.name} 
-                                    className="w-full h-full object-cover" 
-                                  />
-                                </div>
-                                <div>
-                                  <h3 className="font-medium">{testimonial.name}</h3>
-                                  <p className="text-sm text-gray-500">
-                                    {testimonial.position}, {testimonial.company}
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="flex space-x-2">
-                                <Button 
-                                  variant="ghost" 
-                                  size="sm" 
-                                  onClick={() => handleEditTestimonial(testimonial)}
-                                >
-                                  <Edit className="h-4 w-4" />
-                                </Button>
-                                <Button 
-                                  variant="ghost" 
-                                  size="sm" 
-                                  onClick={() => handleDeleteTestimonial(testimonial.id)}
-                                  className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                                >
-                                  <Trash2 className="h-4 w-4" />
-                                </Button>
-                              </div>
-                            </div>
-                            <blockquote className="mt-3 italic text-gray-600">"{testimonial.quote}"</blockquote>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                    {testimonialsData.length === 0 && (
-                      <p className="text-center py-8 text-gray-500">No testimonials added yet.</p>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            
-            {/* Contact Tab */}
-            <TabsContent value="contact">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Contact Information</CardTitle>
-                  <CardDescription>Update your contact details</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {editingContact ? (
-                    <div className="space-y-4">
-                      <div>
-                        <Label htmlFor="email">Email</Label>
-                        <Input 
-                          id="email"
-                          type="email"
-                          value={tempContactData.email} 
-                          onChange={(e) => setTempContactData({...tempContactData, email: e.target.value})} 
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="phone">Phone</Label>
-                        <Input 
-                          id="phone"
-                          value={tempContactData.phone} 
-                          onChange={(e) => setTempContactData({...tempContactData, phone: e.target.value})} 
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="location">Location</Label>
-                        <Input 
-                          id="location"
-                          value={tempContactData.location} 
-                          onChange={(e) => setTempContactData({...tempContactData, location: e.target.value})} 
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="linkedin">LinkedIn URL</Label>
-                        <Input 
-                          id="linkedin"
-                          value={tempContactData.linkedin || ''} 
-                          onChange={(e) => setTempContactData({...tempContactData, linkedin: e.target.value})} 
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="github">GitHub URL</Label>
-                        <Input 
-                          id="github"
-                          value={tempContactData.github || ''} 
-                          onChange={(e) => setTempContactData({...tempContactData, github: e.target.value})} 
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="twitter">Twitter URL</Label>
-                        <Input 
-                          id="twitter"
-                          value={tempContactData.twitter || ''} 
-                          onChange={(e) => setTempContactData({...tempContactData, twitter: e.target.value})} 
-                        />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="space-y-4">
-                      <div className="flex items-center">
-                        <Mail className="h-5 w-5 text-primary mr-3" />
-                        <div>
-                          <p className="text-sm text-gray-500">Email</p>
-                          <p className="font-medium">{contactData.email}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center">
-                        <Phone className="h-5 w-5 text-primary mr-3" />
-                        <div>
-                          <p className="text-sm text-gray-500">Phone</p>
-                          <p className="font-medium">{contactData.phone}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center">
-                        <MapPin className="h-5 w-5 text-primary mr-3" />
-                        <div>
-                          <p className="text-sm text-gray-500">Location</p>
-                          <p className="font-medium">{contactData.location}</p>
-                        </div>
-                      </div>
-                      <div className="pt-4">
-                        <p className="text-sm text-gray-500 mb-3">Social Media</p>
-                        <div className="flex space-x-4">
-                          {contactData.linkedin && (
-                            <a 
-                              href={contactData.linkedin} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="text-gray-600 hover:text-primary transition-colors"
-                            >
-                              <Linkedin className="h-5 w-5" />
-                            </a>
-                          )}
-                          {contactData.github && (
-                            <a 
-                              href={contactData.github} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="text-gray-600 hover:text-primary transition-colors"
-                            >
-                              <Github className="h-5 w-5" />
-                            </a>
-                          )}
-                          {contactData.twitter && (
-                            <a 
-                              href={contactData.twitter} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="text-gray-600 hover:text-primary transition-colors"
-                            >
-                              <Twitter className="h-5 w-5" />
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </CardContent>
-                <CardFooter className="flex justify-end">
-                  {editingContact ? (
-                    <div className="space-x-2">
-                      <Button variant="outline" onClick={() => {
-                        setEditingContact(false);
-                        setTempContactData(contactData);
-                      }}>
-                        Cancel
-                      </Button>
-                      <Button onClick={handleSaveContact}>Save Changes</Button>
-                    </div>
-                  ) : (
-                    <Button onClick={() => setEditingContact(true)}>Edit Contact Info</Button>
-                  )}
-                </CardFooter>
-              </Card>
-            </TabsContent>
-          </Tabs>
-        </div>
-      </main>
-    </div>
-  );
-};
-
-export default Admin;
+                                value={tempProject.projectUrl}

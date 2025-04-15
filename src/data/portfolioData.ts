@@ -1,5 +1,5 @@
 
-import { Project, Experience, Testimonial, ContactInfo, PersonalInfo } from "../types";
+import { Project, Experience, Testimonial, ContactInfo, PersonalInfo, Vision, Skill, Company } from "../types";
 
 export const personalInfo: PersonalInfo = {
   name: "Alex Johnson",
@@ -94,3 +94,58 @@ export const contactInfo: ContactInfo = {
   github: "https://github.com/alexjohnson",
   twitter: "https://twitter.com/alexjohnson"
 };
+
+export const vision: Vision[] = [
+  {
+    id: "1",
+    title: "Data-Driven Decision Making",
+    description: "I believe in transforming raw data into actionable insights that drive strategic business decisions. My vision is to help organizations leverage the power of data science to uncover hidden patterns and create competitive advantages."
+  },
+  {
+    id: "2",
+    title: "Ethical AI Development",
+    description: "I am committed to developing AI solutions that are transparent, fair, and respectful of privacy. My goal is to create systems that amplify human capabilities while maintaining strong ethical standards."
+  },
+  {
+    id: "3",
+    title: "Democratizing Data Science",
+    description: "I envision a future where data science tools and knowledge are accessible to everyone. By creating user-friendly solutions and sharing knowledge, I aim to empower individuals across all levels of technical expertise."
+  }
+];
+
+export const skills: Skill[] = [
+  { id: "1", name: "SQL", proficiency: 90, category: "Database" },
+  { id: "2", name: "Python", proficiency: 95, category: "Programming" },
+  { id: "3", name: "pandas", proficiency: 85, category: "Data Analysis" },
+  { id: "4", name: "numpy", proficiency: 80, category: "Data Analysis" },
+  { id: "5", name: "TensorFlow", proficiency: 75, category: "Machine Learning" },
+  { id: "6", name: "Excel", proficiency: 90, category: "Business Tools" },
+  { id: "7", name: "Power BI", proficiency: 85, category: "Visualization" },
+  { id: "8", name: "Tableau", proficiency: 80, category: "Visualization" },
+  { id: "9", name: "Django", proficiency: 70, category: "Web Development" },
+  { id: "10", name: "NLP", proficiency: 65, category: "Machine Learning" }
+];
+
+export const companies: Company[] = [
+  {
+    id: "1",
+    name: "TechCorp",
+    description: "A leading technology corporation specializing in cloud solutions.",
+    logoUrl: "/placeholder.svg",
+    website: "https://example.com/techcorp"
+  },
+  {
+    id: "2",
+    name: "DataInsights",
+    description: "Innovative data analytics company focused on business intelligence.",
+    logoUrl: "/placeholder.svg",
+    website: "https://example.com/datainsights"
+  },
+  {
+    id: "3",
+    name: "AI Solutions",
+    description: "Pioneering artificial intelligence solutions for enterprise clients.",
+    logoUrl: "/placeholder.svg",
+    website: "https://example.com/aisolutions"
+  }
+];
