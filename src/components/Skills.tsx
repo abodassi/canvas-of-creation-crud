@@ -9,7 +9,7 @@ const Skills = () => {
   
   const getSkillIcon = (skill: string) => {
     const iconProps = { 
-      className: "w-8 h-8 mb-2 text-blue-400 group-hover:text-white transition-colors",
+      className: "w-8 h-8 mb-2 text-purple-400 group-hover:text-white transition-colors",
       strokeWidth: 1.5
     };
     
@@ -38,7 +38,7 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="py-16 bg-gradient-to-br from-gray-800 to-gray-900 text-white">
+    <section id="skills" className="py-16 bg-gradient-to-br from-black to-gray-900 text-white">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Skills</h2>
         
@@ -50,9 +50,10 @@ const Skills = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
               viewport={{ once: true }}
+              whileHover={{ y: -5 }}
               className="group"
             >
-              <div className="flex flex-col items-center p-4 rounded-lg bg-gray-800 bg-opacity-50 border border-gray-700 hover:border-blue-500 hover:bg-gray-700 transition-all duration-300 text-center">
+              <div className="flex flex-col items-center p-4 rounded-lg bg-gradient-to-br from-gray-800 to-black border border-gray-700 hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 text-center">
                 {getSkillIcon(skill.name)}
                 <h3 className="font-medium text-white">{skill.name}</h3>
                 {skill.category && (

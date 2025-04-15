@@ -5,8 +5,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from '@/components/ui/use-toast';
 import { personalInfo as defaultPersonalInfo, projects as defaultProjects, experiences as defaultExperiences, 
          testimonials as defaultTestimonials, contactInfo as defaultContactInfo, vision as defaultVision,
-         skills as defaultSkills, companies as defaultCompanies } from '../data/portfolioData';
-import { PersonalInfo, Project, Experience, Testimonial, ContactInfo, Vision, Skill, Company } from '../types';
+         skills as defaultSkills } from '../data/portfolioData';
+import { PersonalInfo, Project, Experience, Testimonial, ContactInfo, Vision, Skill } from '../types';
 
 // Import refactored components
 import PersonalInfoSection from '../components/admin/PersonalInfoSection';
@@ -14,7 +14,6 @@ import VisionSection from '../components/admin/VisionSection';
 import SkillsSection from '../components/admin/SkillsSection';
 import ProjectsSection from '../components/admin/ProjectsSection';
 import ExperienceSection from '../components/admin/ExperienceSection';
-import CompaniesSection from '../components/admin/CompaniesSection';
 import TestimonialsSection from '../components/admin/TestimonialsSection';
 import ContactSection from '../components/admin/ContactSection';
 
@@ -55,11 +54,6 @@ const Admin = () => {
     return saved ? JSON.parse(saved) : defaultSkills;
   });
   
-  const [companiesData, setCompaniesData] = useState<Company[]>(() => {
-    const saved = localStorage.getItem('companies');
-    return saved ? JSON.parse(saved) : defaultCompanies;
-  });
-  
   // Save to localStorage whenever data changes
   useEffect(() => {
     localStorage.setItem('personalInfo', JSON.stringify(personalData));
@@ -88,31 +82,26 @@ const Admin = () => {
   useEffect(() => {
     localStorage.setItem('skills', JSON.stringify(skillsData));
   }, [skillsData]);
-  
-  useEffect(() => {
-    localStorage.setItem('companies', JSON.stringify(companiesData));
-  }, [companiesData]);
 
   // Helper functions
   const generateId = () => Math.random().toString(36).substring(2, 9);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
       <Header />
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8">Portfolio Admin</h1>
+          <h1 className="text-3xl font-bold mb-8 text-white">Portfolio Admin</h1>
           
           <Tabs defaultValue="personal">
-            <TabsList className="mb-6">
-              <TabsTrigger value="personal">Personal Info</TabsTrigger>
-              <TabsTrigger value="vision">Vision</TabsTrigger>
-              <TabsTrigger value="skills">Skills</TabsTrigger>
-              <TabsTrigger value="projects">Projects</TabsTrigger>
-              <TabsTrigger value="experience">Experience</TabsTrigger>
-              <TabsTrigger value="companies">Companies</TabsTrigger>
-              <TabsTrigger value="testimonials">Testimonials</TabsTrigger>
-              <TabsTrigger value="contact">Contact</TabsTrigger>
+            <TabsList className="mb-6 bg-gray-800 border border-gray-700">
+              <TabsTrigger value="personal" className="data-[state=active]:bg-gray-700 text-gray-300 data-[state=active]:text-white">Personal Info</TabsTrigger>
+              <TabsTrigger value="vision" className="data-[state=active]:bg-gray-700 text-gray-300 data-[state=active]:text-white">Vision</TabsTrigger>
+              <TabsTrigger value="skills" className="data-[state=active]:bg-gray-700 text-gray-300 data-[state=active]:text-white">Skills</TabsTrigger>
+              <TabsTrigger value="projects" className="data-[state=active]:bg-gray-700 text-gray-300 data-[state=active]:text-white">Projects</TabsTrigger>
+              <TabsTrigger value="experience" className="data-[state=active]:bg-gray-700 text-gray-300 data-[state=active]:text-white">Experience</TabsTrigger>
+              <TabsTrigger value="testimonials" className="data-[state=active]:bg-gray-700 text-gray-300 data-[state=active]:text-white">Testimonials</TabsTrigger>
+              <TabsTrigger value="contact" className="data-[state=active]:bg-gray-700 text-gray-300 data-[state=active]:text-white">Contact</TabsTrigger>
             </TabsList>
             
             {/* Personal Info Tab */}
@@ -155,15 +144,6 @@ const Admin = () => {
               <ExperienceSection 
                 experiencesData={experiencesData} 
                 setExperiencesData={setExperiencesData} 
-                generateId={generateId} 
-              />
-            </TabsContent>
-            
-            {/* Companies Tab */}
-            <TabsContent value="companies">
-              <CompaniesSection 
-                companiesData={companiesData} 
-                setCompaniesData={setCompaniesData} 
                 generateId={generateId} 
               />
             </TabsContent>
