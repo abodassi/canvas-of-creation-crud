@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { Trash2, Edit, Plus, Save, X, Image } from 'lucide-react';
+import ImageUpload from './ImageUpload';
 
 interface VisionSectionProps {
   visionData: Vision[];
@@ -68,53 +69,51 @@ const VisionSection = ({ visionData, setVisionData, generateId }: VisionSectionP
   };
 
   return (
-    <Card>
+    <Card className="bg-gradient-to-br from-gray-800 to-black border-gray-700">
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle>Vision</CardTitle>
-          <CardDescription>Manage your vision statements</CardDescription>
+          <CardTitle className="text-white">Vision</CardTitle>
+          <CardDescription className="text-gray-400">Manage your vision statements</CardDescription>
         </div>
         {!showAddVision && (
-          <Button onClick={() => setShowAddVision(true)} size="sm">
+          <Button onClick={() => setShowAddVision(true)} size="sm" className="bg-purple-600 hover:bg-purple-500">
             <Plus className="mr-1 h-4 w-4" /> Add Vision
           </Button>
         )}
       </CardHeader>
-      <CardContent>
+      <CardContent className="text-gray-300">
         {showAddVision && (
-          <div className="mb-8 bg-gray-50 p-4 border rounded-lg">
-            <h3 className="text-lg font-medium mb-4">Add New Vision</h3>
+          <div className="mb-8 bg-gray-800 p-4 border border-gray-700 rounded-lg">
+            <h3 className="text-lg font-medium mb-4 text-white">Add New Vision</h3>
             <div className="space-y-4">
               <div>
-                <Label htmlFor="new-vision-title">Title</Label>
+                <Label htmlFor="new-vision-title" className="text-gray-300">Title</Label>
                 <Input 
                   id="new-vision-title"
                   value={newVision.title} 
                   onChange={(e) => setNewVision({...newVision, title: e.target.value})}
                   placeholder="Vision title" 
+                  className="bg-gray-700 border-gray-600 text-white"
                 />
               </div>
               <div>
-                <Label htmlFor="new-vision-description">Description</Label>
+                <Label htmlFor="new-vision-description" className="text-gray-300">Description</Label>
                 <Textarea 
                   id="new-vision-description"
                   value={newVision.description} 
                   onChange={(e) => setNewVision({...newVision, description: e.target.value})} 
                   placeholder="Vision description"
+                  className="bg-gray-700 border-gray-600 text-white"
                 />
               </div>
-              <div>
-                <Label htmlFor="new-vision-image">Image URL</Label>
-                <Input 
-                  id="new-vision-image"
-                  value={newVision.imageUrl} 
-                  onChange={(e) => setNewVision({...newVision, imageUrl: e.target.value})}
-                  placeholder="/placeholder.svg" 
-                />
-              </div>
+              <ImageUpload
+                currentImageUrl={newVision.imageUrl || '/placeholder.svg'}
+                onImageChange={(newImageUrl) => setNewVision({...newVision, imageUrl: newImageUrl})}
+                label="Vision Image"
+              />
               <div className="flex justify-end space-x-2 pt-2">
-                <Button variant="outline" onClick={() => setShowAddVision(false)}>Cancel</Button>
-                <Button onClick={handleAddVision}>Add Vision</Button>
+                <Button variant="outline" onClick={() => setShowAddVision(false)} className="border-gray-600 text-gray-300 hover:bg-gray-700">Cancel</Button>
+                <Button onClick={handleAddVision} className="bg-purple-600 hover:bg-purple-500">Add Vision</Button>
               </div>
             </div>
           </div>
@@ -122,34 +121,32 @@ const VisionSection = ({ visionData, setVisionData, generateId }: VisionSectionP
         
         <div className="space-y-6">
           {visionData.map(vision => (
-            <div key={vision.id} className="border rounded-lg p-4">
+            <div key={vision.id} className="border border-gray-700 rounded-lg p-4 bg-gray-800">
               {editingVision === vision.id && tempVision ? (
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor={`title-${vision.id}`}>Title</Label>
+                    <Label htmlFor={`title-${vision.id}`} className="text-gray-300">Title</Label>
                     <Input 
                       id={`title-${vision.id}`}
                       value={tempVision.title} 
                       onChange={(e) => setTempVision({...tempVision, title: e.target.value})} 
+                      className="bg-gray-700 border-gray-600 text-white"
                     />
                   </div>
                   <div>
-                    <Label htmlFor={`description-${vision.id}`}>Description</Label>
+                    <Label htmlFor={`description-${vision.id}`} className="text-gray-300">Description</Label>
                     <Textarea 
                       id={`description-${vision.id}`}
                       value={tempVision.description} 
                       onChange={(e) => setTempVision({...tempVision, description: e.target.value})} 
+                      className="bg-gray-700 border-gray-600 text-white"
                     />
                   </div>
-                  <div>
-                    <Label htmlFor={`image-${vision.id}`}>Image URL</Label>
-                    <Input 
-                      id={`image-${vision.id}`}
-                      value={tempVision.imageUrl || ''} 
-                      onChange={(e) => setTempVision({...tempVision, imageUrl: e.target.value})} 
-                      placeholder="/placeholder.svg"
-                    />
-                  </div>
+                  <ImageUpload
+                    currentImageUrl={tempVision.imageUrl || '/placeholder.svg'}
+                    onImageChange={(newImageUrl) => setTempVision({...tempVision, imageUrl: newImageUrl})}
+                    label="Vision Image"
+                  />
                   <div className="flex justify-end space-x-2 pt-2">
                     <Button 
                       variant="outline" 
@@ -157,10 +154,11 @@ const VisionSection = ({ visionData, setVisionData, generateId }: VisionSectionP
                         setEditingVision(null);
                         setTempVision(null);
                       }}
+                      className="border-gray-600 text-gray-300 hover:bg-gray-700"
                     >
                       <X className="mr-1 h-4 w-4" /> Cancel
                     </Button>
-                    <Button onClick={handleUpdateVision}>
+                    <Button onClick={handleUpdateVision} className="bg-purple-600 hover:bg-purple-500">
                       <Save className="mr-1 h-4 w-4" /> Save
                     </Button>
                   </div>
@@ -170,7 +168,7 @@ const VisionSection = ({ visionData, setVisionData, generateId }: VisionSectionP
                   <div className="flex justify-between items-start">
                     <div className="flex items-start gap-4">
                       {vision.imageUrl && vision.imageUrl !== '/placeholder.svg' ? (
-                        <div className="w-16 h-16 rounded overflow-hidden bg-gray-100">
+                        <div className="w-16 h-16 rounded overflow-hidden bg-gray-700 border border-gray-600">
                           <img 
                             src={vision.imageUrl} 
                             alt={vision.title} 
@@ -178,12 +176,12 @@ const VisionSection = ({ visionData, setVisionData, generateId }: VisionSectionP
                           />
                         </div>
                       ) : (
-                        <div className="w-16 h-16 flex items-center justify-center rounded bg-gray-100">
+                        <div className="w-16 h-16 flex items-center justify-center rounded bg-gray-700 border border-gray-600">
                           <Image className="h-6 w-6 text-gray-400" />
                         </div>
                       )}
                       <div>
-                        <h3 className="text-lg font-medium">{vision.title}</h3>
+                        <h3 className="text-lg font-medium text-white">{vision.title}</h3>
                       </div>
                     </div>
                     <div className="flex space-x-2">
@@ -191,6 +189,7 @@ const VisionSection = ({ visionData, setVisionData, generateId }: VisionSectionP
                         variant="ghost" 
                         size="sm" 
                         onClick={() => handleEditVision(vision)}
+                        className="text-gray-300 hover:bg-gray-700"
                       >
                         <Edit className="h-4 w-4" />
                       </Button>
@@ -198,13 +197,13 @@ const VisionSection = ({ visionData, setVisionData, generateId }: VisionSectionP
                         variant="ghost" 
                         size="sm" 
                         onClick={() => handleDeleteVision(vision.id)}
-                        className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                        className="text-red-500 hover:text-red-400 hover:bg-gray-700"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
-                  <p className="mt-2 text-gray-600">{vision.description}</p>
+                  <p className="mt-2 text-gray-300">{vision.description}</p>
                 </div>
               )}
             </div>

@@ -19,6 +19,8 @@ const Vision = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
+              whileHover={{ y: -5 }}
+              className="h-full"
             >
               <Card className="overflow-hidden bg-gradient-to-br from-gray-800 to-black border border-gray-700 hover:border-purple-500 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 group h-full">
                 {item.imageUrl && item.imageUrl !== '/placeholder.svg' && (

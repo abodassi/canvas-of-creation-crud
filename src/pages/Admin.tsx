@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useToast } from '@/components/ui/use-toast';
 import { personalInfo as defaultPersonalInfo, projects as defaultProjects, experiences as defaultExperiences, 
          testimonials as defaultTestimonials, contactInfo as defaultContactInfo, vision as defaultVision,
          skills as defaultSkills } from '../data/portfolioData';
@@ -91,7 +90,7 @@ const Admin = () => {
       <Header />
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8 text-white">Portfolio Admin</h1>
+          <h1 className="text-3xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Portfolio Admin</h1>
           
           <Tabs defaultValue="personal">
             <TabsList className="mb-6 bg-gray-800 border border-gray-700">

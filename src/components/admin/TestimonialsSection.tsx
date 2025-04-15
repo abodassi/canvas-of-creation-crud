@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { Trash2, Edit, Plus, Save, X } from 'lucide-react';
+import ImageUpload from './ImageUpload';
 
 interface TestimonialsSectionProps {
   testimonialsData: Testimonial[];
@@ -72,71 +73,71 @@ const TestimonialsSection = ({ testimonialsData, setTestimonialsData, generateId
   };
 
   return (
-    <Card>
+    <Card className="bg-gradient-to-br from-gray-800 to-black border-gray-700">
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle>Testimonials</CardTitle>
-          <CardDescription>Manage testimonials from clients and colleagues</CardDescription>
+          <CardTitle className="text-white">Testimonials</CardTitle>
+          <CardDescription className="text-gray-400">Manage testimonials from clients and colleagues</CardDescription>
         </div>
         {!showAddTestimonial && (
-          <Button onClick={() => setShowAddTestimonial(true)} size="sm">
+          <Button onClick={() => setShowAddTestimonial(true)} size="sm" className="bg-purple-600 hover:bg-purple-500">
             <Plus className="mr-1 h-4 w-4" /> Add Testimonial
           </Button>
         )}
       </CardHeader>
-      <CardContent>
+      <CardContent className="text-gray-300">
         {showAddTestimonial && (
-          <div className="mb-8 bg-gray-50 p-4 border rounded-lg">
-            <h3 className="text-lg font-medium mb-4">Add New Testimonial</h3>
+          <div className="mb-8 bg-gray-800 p-4 border border-gray-700 rounded-lg">
+            <h3 className="text-lg font-medium mb-4 text-white">Add New Testimonial</h3>
             <div className="space-y-4">
               <div>
-                <Label htmlFor="new-name">Name</Label>
+                <Label htmlFor="new-name" className="text-gray-300">Name</Label>
                 <Input 
                   id="new-name"
                   value={newTestimonial.name} 
                   onChange={(e) => setNewTestimonial({...newTestimonial, name: e.target.value})}
                   placeholder="Person's name" 
+                  className="bg-gray-700 border-gray-600 text-white"
                 />
               </div>
               <div>
-                <Label htmlFor="new-position">Position</Label>
+                <Label htmlFor="new-position" className="text-gray-300">Position</Label>
                 <Input 
                   id="new-position"
                   value={newTestimonial.position} 
                   onChange={(e) => setNewTestimonial({...newTestimonial, position: e.target.value})} 
                   placeholder="Job title"
+                  className="bg-gray-700 border-gray-600 text-white"
                 />
               </div>
               <div>
-                <Label htmlFor="new-company">Company</Label>
+                <Label htmlFor="new-company" className="text-gray-300">Company</Label>
                 <Input 
                   id="new-company"
                   value={newTestimonial.company} 
                   onChange={(e) => setNewTestimonial({...newTestimonial, company: e.target.value})} 
                   placeholder="Company name"
+                  className="bg-gray-700 border-gray-600 text-white"
                 />
               </div>
               <div>
-                <Label htmlFor="new-quote">Testimonial Quote</Label>
+                <Label htmlFor="new-quote" className="text-gray-300">Testimonial Quote</Label>
                 <Textarea 
                   id="new-quote"
                   value={newTestimonial.quote} 
                   onChange={(e) => setNewTestimonial({...newTestimonial, quote: e.target.value})} 
                   placeholder="What they said about you"
+                  className="bg-gray-700 border-gray-600 text-white"
                 />
               </div>
-              <div>
-                <Label htmlFor="new-image">Profile Image URL</Label>
-                <Input 
-                  id="new-image"
-                  value={newTestimonial.imageUrl} 
-                  onChange={(e) => setNewTestimonial({...newTestimonial, imageUrl: e.target.value})} 
-                  placeholder="/placeholder.svg"
-                />
-              </div>
+              <ImageUpload
+                currentImageUrl={newTestimonial.imageUrl}
+                onImageChange={(newImageUrl) => setNewTestimonial({...newTestimonial, imageUrl: newImageUrl})}
+                label="Person's Image"
+              />
               <div className="flex justify-end space-x-2 pt-2">
-                <Button variant="outline" onClick={() => setShowAddTestimonial(false)}>Cancel</Button>
-                <Button onClick={handleAddTestimonial}>Add Testimonial</Button>
+                <Button variant="outline" onClick={() => setShowAddTestimonial(false)} className="border-gray-600 text-gray-300 hover:bg-gray-700">Cancel</Button>
+                <Button onClick={handleAddTestimonial} className="bg-purple-600 hover:bg-purple-500">Add Testimonial</Button>
               </div>
             </div>
           </div>
@@ -144,49 +145,50 @@ const TestimonialsSection = ({ testimonialsData, setTestimonialsData, generateId
         
         <div className="space-y-6">
           {testimonialsData.map(testimonial => (
-            <div key={testimonial.id} className="border rounded-lg p-4">
+            <div key={testimonial.id} className="border border-gray-700 rounded-lg p-4 bg-gray-800">
               {editingTestimonial === testimonial.id && tempTestimonial ? (
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor={`name-${testimonial.id}`}>Name</Label>
+                    <Label htmlFor={`name-${testimonial.id}`} className="text-gray-300">Name</Label>
                     <Input 
                       id={`name-${testimonial.id}`}
                       value={tempTestimonial.name} 
                       onChange={(e) => setTempTestimonial({...tempTestimonial, name: e.target.value})} 
+                      className="bg-gray-700 border-gray-600 text-white"
                     />
                   </div>
                   <div>
-                    <Label htmlFor={`position-${testimonial.id}`}>Position</Label>
+                    <Label htmlFor={`position-${testimonial.id}`} className="text-gray-300">Position</Label>
                     <Input 
                       id={`position-${testimonial.id}`}
                       value={tempTestimonial.position} 
                       onChange={(e) => setTempTestimonial({...tempTestimonial, position: e.target.value})} 
+                      className="bg-gray-700 border-gray-600 text-white"
                     />
                   </div>
                   <div>
-                    <Label htmlFor={`company-${testimonial.id}`}>Company</Label>
+                    <Label htmlFor={`company-${testimonial.id}`} className="text-gray-300">Company</Label>
                     <Input 
                       id={`company-${testimonial.id}`}
                       value={tempTestimonial.company} 
                       onChange={(e) => setTempTestimonial({...tempTestimonial, company: e.target.value})} 
+                      className="bg-gray-700 border-gray-600 text-white"
                     />
                   </div>
                   <div>
-                    <Label htmlFor={`quote-${testimonial.id}`}>Quote</Label>
+                    <Label htmlFor={`quote-${testimonial.id}`} className="text-gray-300">Quote</Label>
                     <Textarea 
                       id={`quote-${testimonial.id}`}
                       value={tempTestimonial.quote} 
                       onChange={(e) => setTempTestimonial({...tempTestimonial, quote: e.target.value})} 
+                      className="bg-gray-700 border-gray-600 text-white"
                     />
                   </div>
-                  <div>
-                    <Label htmlFor={`image-${testimonial.id}`}>Image URL</Label>
-                    <Input 
-                      id={`image-${testimonial.id}`}
-                      value={tempTestimonial.imageUrl} 
-                      onChange={(e) => setTempTestimonial({...tempTestimonial, imageUrl: e.target.value})} 
-                    />
-                  </div>
+                  <ImageUpload
+                    currentImageUrl={tempTestimonial.imageUrl}
+                    onImageChange={(newImageUrl) => setTempTestimonial({...tempTestimonial, imageUrl: newImageUrl})}
+                    label="Person's Image"
+                  />
                   <div className="flex justify-end space-x-2 pt-2">
                     <Button 
                       variant="outline" 
@@ -194,10 +196,11 @@ const TestimonialsSection = ({ testimonialsData, setTestimonialsData, generateId
                         setEditingTestimonial(null);
                         setTempTestimonial(null);
                       }}
+                      className="border-gray-600 text-gray-300 hover:bg-gray-700"
                     >
                       <X className="mr-1 h-4 w-4" /> Cancel
                     </Button>
-                    <Button onClick={handleUpdateTestimonial}>
+                    <Button onClick={handleUpdateTestimonial} className="bg-purple-600 hover:bg-purple-500">
                       <Save className="mr-1 h-4 w-4" /> Save
                     </Button>
                   </div>
@@ -206,12 +209,12 @@ const TestimonialsSection = ({ testimonialsData, setTestimonialsData, generateId
                 <div>
                   <div className="flex justify-between items-start">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-100">
+                      <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-700 border border-purple-500">
                         <img src={testimonial.imageUrl} alt={testimonial.name} className="w-full h-full object-cover" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-medium">{testimonial.name}</h3>
-                        <p className="text-sm text-gray-600">{testimonial.position}, {testimonial.company}</p>
+                        <h3 className="text-lg font-medium text-white">{testimonial.name}</h3>
+                        <p className="text-sm text-gray-400">{testimonial.position}, {testimonial.company}</p>
                       </div>
                     </div>
                     <div className="flex space-x-2">
@@ -219,6 +222,7 @@ const TestimonialsSection = ({ testimonialsData, setTestimonialsData, generateId
                         variant="ghost" 
                         size="sm" 
                         onClick={() => handleEditTestimonial(testimonial)}
+                        className="text-gray-300 hover:bg-gray-700"
                       >
                         <Edit className="h-4 w-4" />
                       </Button>
@@ -226,13 +230,13 @@ const TestimonialsSection = ({ testimonialsData, setTestimonialsData, generateId
                         variant="ghost" 
                         size="sm" 
                         onClick={() => handleDeleteTestimonial(testimonial.id)}
-                        className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                        className="text-red-500 hover:text-red-400 hover:bg-gray-700"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
-                  <blockquote className="mt-4 italic text-gray-700 border-l-4 border-gray-200 pl-4">
+                  <blockquote className="mt-4 italic text-gray-300 border-l-4 border-purple-500 pl-4">
                     "{testimonial.quote}"
                   </blockquote>
                 </div>
