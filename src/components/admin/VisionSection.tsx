@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
-import { Trash2, Edit, Plus, Save, X } from 'lucide-react';
+import { Trash2, Edit, Plus, Save, X, Image } from 'lucide-react';
 
 interface VisionSectionProps {
   visionData: Vision[];
@@ -103,6 +103,15 @@ const VisionSection = ({ visionData, setVisionData, generateId }: VisionSectionP
                   placeholder="Vision description"
                 />
               </div>
+              <div>
+                <Label htmlFor="new-vision-image">Image URL</Label>
+                <Input 
+                  id="new-vision-image"
+                  value={newVision.imageUrl} 
+                  onChange={(e) => setNewVision({...newVision, imageUrl: e.target.value})}
+                  placeholder="/placeholder.svg" 
+                />
+              </div>
               <div className="flex justify-end space-x-2 pt-2">
                 <Button variant="outline" onClick={() => setShowAddVision(false)}>Cancel</Button>
                 <Button onClick={handleAddVision}>Add Vision</Button>
@@ -132,6 +141,15 @@ const VisionSection = ({ visionData, setVisionData, generateId }: VisionSectionP
                       onChange={(e) => setTempVision({...tempVision, description: e.target.value})} 
                     />
                   </div>
+                  <div>
+                    <Label htmlFor={`image-${vision.id}`}>Image URL</Label>
+                    <Input 
+                      id={`image-${vision.id}`}
+                      value={tempVision.imageUrl || ''} 
+                      onChange={(e) => setTempVision({...tempVision, imageUrl: e.target.value})} 
+                      placeholder="/placeholder.svg"
+                    />
+                  </div>
                   <div className="flex justify-end space-x-2 pt-2">
                     <Button 
                       variant="outline" 
@@ -150,8 +168,23 @@ const VisionSection = ({ visionData, setVisionData, generateId }: VisionSectionP
               ) : (
                 <div>
                   <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-lg font-medium">{vision.title}</h3>
+                    <div className="flex items-start gap-4">
+                      {vision.imageUrl && vision.imageUrl !== '/placeholder.svg' ? (
+                        <div className="w-16 h-16 rounded overflow-hidden bg-gray-100">
+                          <img 
+                            src={vision.imageUrl} 
+                            alt={vision.title} 
+                            className="w-full h-full object-cover" 
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-16 h-16 flex items-center justify-center rounded bg-gray-100">
+                          <Image className="h-6 w-6 text-gray-400" />
+                        </div>
+                      )}
+                      <div>
+                        <h3 className="text-lg font-medium">{vision.title}</h3>
+                      </div>
                     </div>
                     <div className="flex space-x-2">
                       <Button 
