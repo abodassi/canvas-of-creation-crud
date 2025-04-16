@@ -14,23 +14,17 @@ const Header: React.FC = () => {
   const MobileNavLinks = () => (
     <div className="flex flex-col space-y-4 py-4">
       <>
-        <a href="#introduction" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">About</a>
-        <a href="#projects" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Projects</a>
-        <a href="#experience" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Experience</a>
-        <a href="#testimonials" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Testimonials</a>
-        <a href="#contact" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Contact</a>
-        <Link 
-          to="/admin"
-          onClick={() => setIsOpen(false)} 
-          className="text-base font-medium text-gray-700 hover:text-primary transition-colors">
-          Admin
-        </Link>
+        <a href="#introduction" onClick={() => setIsOpen(false)} className="text-base font-medium text-white bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 px-4 py-2 rounded-lg shadow-md transition-all duration-300">About</a>
+        <a href="#projects" onClick={() => setIsOpen(false)} className="text-base font-medium text-white bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 px-4 py-2 rounded-lg shadow-md transition-all duration-300">Projects</a>
+        <a href="#experience" onClick={() => setIsOpen(false)} className="text-base font-medium text-white bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 px-4 py-2 rounded-lg shadow-md transition-all duration-300">Experience</a>
+        <a href="#testimonials" onClick={() => setIsOpen(false)} className="text-base font-medium text-white bg-gradient-to-r from-teal-500 to-green-500 hover:from-teal-600 hover:to-green-600 px-4 py-2 rounded-lg shadow-md transition-all duration-300">Testimonials</a>
+        <a href="#contact" onClick={() => setIsOpen(false)} className="text-base font-medium text-white bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 px-4 py-2 rounded-lg shadow-md transition-all duration-300">Contact</a>
       </>
       {!isIndexPage && (
         <Link 
           to="/"
           onClick={() => setIsOpen(false)} 
-          className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors">
+          className="text-base font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors px-4 py-2">
           View Portfolio
         </Link>
       )}
@@ -38,23 +32,18 @@ const Header: React.FC = () => {
   );
 
   const DesktopNavLinks = () => (
-    <div className="flex items-center space-x-6">
+    <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
       <>
-        <a href="#introduction" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">About</a>
-        <a href="#projects" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Projects</a>
-        <a href="#experience" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Experience</a>
-        <a href="#testimonials" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Testimonials</a>
-        <a href="#contact" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Contact</a>
-        <Link 
-          to="/admin" 
-          className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">
-          Admin
-        </Link>
+        <a href="#introduction" className="text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg shadow-md transition-all duration-300">About</a>
+        <a href="#projects" className="text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg shadow-md transition-all duration-300">Projects</a>
+        <a href="#experience" className="text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg shadow-md transition-all duration-300">Experience</a>
+        <a href="#testimonials" className="text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-green-500 hover:from-teal-600 hover:to-green-600 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg shadow-md transition-all duration-300 hidden sm:block">Testimonials</a>
+        <a href="#contact" className="text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg shadow-md transition-all duration-300">Contact</a>
       </>
       {!isIndexPage && (
         <Link 
           to="/" 
-          className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors">
+          className="text-xs sm:text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors px-2 sm:px-3 md:px-4 py-1.5 sm:py-2">
           View Portfolio
         </Link>
       )}
@@ -84,7 +73,7 @@ const Header: React.FC = () => {
             </SheetContent>
           </Sheet>
         ) : (
-          <nav className="flex items-center space-x-6">
+          <nav className="flex items-center">
             <DesktopNavLinks />
           </nav>
         )}
