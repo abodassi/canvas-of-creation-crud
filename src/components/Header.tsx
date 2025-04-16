@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu } from 'lucide-react';
@@ -8,12 +7,13 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 const Header: React.FC = () => {
   const location = useLocation();
   const isAdminPage = location.pathname === '/admin';
+  const isIndexPage = location.pathname === '/';
   const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
 
   const MobileNavLinks = () => (
     <div className="flex flex-col space-y-4 py-4">
-      {!isAdminPage ? (
+      {!isAdminPage && !isIndexPage ? (
         <>
           <a href="#introduction" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">About</a>
           <a href="#projects" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Projects</a>
@@ -22,18 +22,20 @@ const Header: React.FC = () => {
           <a href="#contact" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Contact</a>
         </>
       ) : null}
-      <Link 
-        to="/"
-        onClick={() => setIsOpen(false)} 
-        className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors">
-        View Portfolio
-      </Link>
+      {!isIndexPage && (
+        <Link 
+          to="/"
+          onClick={() => setIsOpen(false)} 
+          className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors">
+          View Portfolio
+        </Link>
+      )}
     </div>
   );
 
   const DesktopNavLinks = () => (
     <div className="flex items-center space-x-6">
-      {!isAdminPage ? (
+      {!isAdminPage && !isIndexPage ? (
         <>
           <a href="#introduction" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">About</a>
           <a href="#projects" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Projects</a>
@@ -42,11 +44,13 @@ const Header: React.FC = () => {
           <a href="#contact" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Contact</a>
         </>
       ) : null}
-      <Link 
-        to="/" 
-        className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors">
-        View Portfolio
-      </Link>
+      {!isIndexPage && (
+        <Link 
+          to="/" 
+          className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors">
+          View Portfolio
+        </Link>
+      )}
     </div>
   );
 
