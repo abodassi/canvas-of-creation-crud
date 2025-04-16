@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import { useIsMobile } from '../hooks/use-mobile';
-import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 const Header: React.FC = () => {
@@ -33,7 +32,7 @@ const Header: React.FC = () => {
   );
 
   const DesktopNavLinks = () => (
-    <>
+    <div className="flex items-center space-x-6">
       {!isAdminPage ? (
         <>
           <a href="#introduction" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">About</a>
