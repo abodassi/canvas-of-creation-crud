@@ -21,21 +21,14 @@ const Header: React.FC = () => {
           <a href="#experience" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Experience</a>
           <a href="#testimonials" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Testimonials</a>
           <a href="#contact" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Contact</a>
-          <Link 
-            to="/admin" 
-            onClick={() => setIsOpen(false)}
-            className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors">
-            Admin
-          </Link>
         </>
-      ) : (
-        <Link 
-          to="/"
-          onClick={() => setIsOpen(false)} 
-          className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors">
-          View Portfolio
-        </Link>
-      )}
+      ) : null}
+      <Link 
+        to="/"
+        onClick={() => setIsOpen(false)} 
+        className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors">
+        View Portfolio
+      </Link>
     </div>
   );
 
@@ -48,20 +41,14 @@ const Header: React.FC = () => {
           <a href="#experience" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Experience</a>
           <a href="#testimonials" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Testimonials</a>
           <a href="#contact" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Contact</a>
-          <Link 
-            to="/admin" 
-            className="ml-3 px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors">
-            Admin
-          </Link>
         </>
-      ) : (
-        <Link 
-          to="/" 
-          className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors">
-          View Portfolio
-        </Link>
-      )}
-    </>
+      ) : null}
+      <Link 
+        to="/" 
+        className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors">
+        View Portfolio
+      </Link>
+    </div>
   );
 
   return (
