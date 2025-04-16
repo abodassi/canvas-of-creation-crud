@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu } from 'lucide-react';
@@ -6,22 +7,25 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 const Header: React.FC = () => {
   const location = useLocation();
-  const isAdminPage = location.pathname === '/admin';
   const isIndexPage = location.pathname === '/';
   const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
 
   const MobileNavLinks = () => (
     <div className="flex flex-col space-y-4 py-4">
-      {!isAdminPage && !isIndexPage ? (
-        <>
-          <a href="#introduction" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">About</a>
-          <a href="#projects" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Projects</a>
-          <a href="#experience" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Experience</a>
-          <a href="#testimonials" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Testimonials</a>
-          <a href="#contact" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Contact</a>
-        </>
-      ) : null}
+      <>
+        <a href="#introduction" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">About</a>
+        <a href="#projects" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Projects</a>
+        <a href="#experience" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Experience</a>
+        <a href="#testimonials" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Testimonials</a>
+        <a href="#contact" onClick={() => setIsOpen(false)} className="text-base font-medium text-gray-700 hover:text-primary transition-colors">Contact</a>
+        <Link 
+          to="/admin"
+          onClick={() => setIsOpen(false)} 
+          className="text-base font-medium text-gray-700 hover:text-primary transition-colors">
+          Admin
+        </Link>
+      </>
       {!isIndexPage && (
         <Link 
           to="/"
@@ -35,15 +39,18 @@ const Header: React.FC = () => {
 
   const DesktopNavLinks = () => (
     <div className="flex items-center space-x-6">
-      {!isAdminPage && !isIndexPage ? (
-        <>
-          <a href="#introduction" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">About</a>
-          <a href="#projects" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Projects</a>
-          <a href="#experience" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Experience</a>
-          <a href="#testimonials" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Testimonials</a>
-          <a href="#contact" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Contact</a>
-        </>
-      ) : null}
+      <>
+        <a href="#introduction" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">About</a>
+        <a href="#projects" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Projects</a>
+        <a href="#experience" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Experience</a>
+        <a href="#testimonials" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Testimonials</a>
+        <a href="#contact" className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">Contact</a>
+        <Link 
+          to="/admin" 
+          className="text-sm font-medium text-gray-700 hover:text-primary transition-colors">
+          Admin
+        </Link>
+      </>
       {!isIndexPage && (
         <Link 
           to="/" 
