@@ -1,129 +1,232 @@
 
-import { Project, Experience, Testimonial, ContactInfo, PersonalInfo, Vision, Skill, Company } from "../types";
+import {
+  Project,
+  Experience,
+  Testimonial,
+  ContactInfo,
+  PersonalInfo,
+  Vision,
+  Skill,
+  Company,
+} from "../types";
 
 export const personalInfo: PersonalInfo = {
-  name: "Alex Johnson",
-  title: "Full Stack Developer",
-  bio: "Passionate full stack developer with over 5 years of experience creating beautiful, responsive web applications. Specialized in React, Node.js, and modern web technologies.",
-  imageUrl: "/placeholder.svg"
+  name: "Abdelrahman Abuassi",
+  title: "Data Scientist",
+  bio: "AI and Data Science enthusiast with a strong background in data analysis, machine learning, and web development. Experienced in building intelligent systems and interactive dashboards using tools like Python, SQL, React, and Power BI. Passionate about creating impactful tech solutions that solve real-world problems.",
+  imageUrl: "/favicon.jpg",
 };
 
 export const projects: Project[] = [
   {
     id: "1",
-    title: "E-Commerce Platform",
-    description: "A fully responsive e-commerce platform with payment integration, user authentication, and inventory management.",
-    imageUrl: "/placeholder.svg",
-    projectUrl: "https://example.com/ecommerce",
-    technologies: ["React", "Node.js", "MongoDB", "Stripe"]
+    title: "Sales analysis power bi dashboard",
+    description:
+      "Sales analysis power bi dashboard, An interactive Power BI dashboard providing insights into sales performance, trends, and key metrics.",
+    imageUrl: "/1.png",
+    projectUrl:
+      "https://app.powerbi.com/groups/me/reports/116ddb0a-e54c-4b10-81fa-6ce45f4ab4c0/2087ec5c198cc9da7bed?language=en-US&experience=power-bi",
+    technologies: ["power bi", "Excel"],
   },
   {
     id: "2",
-    title: "Task Management App",
-    description: "An intuitive task management application with real-time updates, team collaboration features, and progress tracking.",
-    imageUrl: "/placeholder.svg",
-    projectUrl: "https://example.com/taskapp",
-    technologies: ["React", "Firebase", "TypeScript", "Tailwind CSS"]
+    title: "Phones Sales BI Dashboard",
+    description:
+      "Phones Sales BI Dashboard, A comprehensive Power BI report analyzing phone sales data, customer trends, and revenue insights.",
+      imageUrl: "/2.png",
+    projectUrl:
+      "https://app.powerbi.com/groups/26bfb640-3df5-42a5-8a79-037c52c047f7/reports/9e9bc081-3776-43eb-96ea-73a994512428/9e1bc9acca5cd3c76da2?language=en-US&experience=power-bi",
+    technologies: ["power bi", "Excel"],
   },
   {
     id: "3",
-    title: "Health & Fitness Tracker",
-    description: "A comprehensive health and fitness tracking application with personalized recommendations and progress visualization.",
-    imageUrl: "/placeholder.svg",
-    projectUrl: "https://example.com/fitness",
-    technologies: ["React Native", "Express", "PostgreSQL", "Chart.js"]
-  }
+    title: "Music Party Sales Tableau Dashboard",
+    description:
+      "Music Party Sales Tableau Dashboard, A Tableau dashboard visualizing sales data for music events, highlighting revenue and attendance trends.",
+      imageUrl: "/3.png",
+    projectUrl:
+      "https://public.tableau.com/app/profile/abdel.rahman.abu.assi/viz/SimplyMusicdashboard_17343482550740/DetailedView",
+    technologies: ["Excel", "tableau"],
+  },
+  {
+    id: "4",
+    title: "Real Estate Price Prediction",
+    description:
+      "Real Estate Price Prediction, A machine learning project predicting real estate prices using regression models.",
+      imageUrl: "/4.png",
+    projectUrl:
+      "https://colab.research.google.com/drive/1sD8eXi6o2DV0Dj3cNUCkIS-QBcWF5V9g",
+    technologies: ["python", "pandas", "numpy", "ML"],
+  },
+  {
+    id: "5",
+    title: "Student Information Analysis",
+    description:
+      "Student Information Analysis, A Tableau project analyzing student data from The Open University, focusing on GPA and performance metrics",
+      imageUrl: "/5.png",
+    projectUrl:
+      "https://public.tableau.com/app/profile/abdel.rahman.abu.assi/viz/EC2_17339244808910/GPASAVG",
+    technologies: ["tableau", "Excel"],
+  },
+  {
+    id: "6",
+    title: "SQL Data Analysis Project",
+    description:
+      "SQL Data Analysis Project, A project demonstrating SQL queries and data manipulation for business insights.",
+      imageUrl: "/6.png",
+    projectUrl:
+      "https://colab.research.google.com/drive/1ZUKI-t6kp6Nr0j_C3_x3EMOuPMN2ui1A#scrollTo=JYwsFGIZdTWP",
+    technologies: ["python", "pandas", "Excel", "SQL"],
+  },
+  {
+    id: "7",
+    title: "Depression Prediction Model",
+    description:
+      "Depression Prediction Model, A machine learning model predicting depression levels based on survey data.",
+      imageUrl: "/7.png",
+    projectUrl:
+      "https://colab.research.google.com/drive/10z0l-v_FVQD5gui3fhiQKS5wcs2R0NER",
+    technologies: ["python", "pandas", "numpy", "ML"],
+  },
+  {
+    id: "8",
+    title: "Dog vs Cat Image Classification",
+    description:
+      "Dog vs Cat Image Classification, A CNN-based deep learning project classifying images of dogs and cats.",
+      imageUrl: "/8.png",
+    projectUrl:
+      "https://colab.research.google.com/drive/16FfUXbdmgaKfoslY1rDRRscUeOS7tO8M",
+    technologies: ["python", "pandas", "numpy", "Deep Learning", "Tensorflow"],
+  },
+  {
+    id: "9",
+    title: "CAR vs MOTOR Image Classification",
+    description:
+      "CAR vs MOTOR Image Classification, A CNN-based deep learning project classifying images of Cars and Motors.",
+      imageUrl: "/9.png",
+    projectUrl:
+      "https://colab.research.google.com/drive/1iVOTuuWwWwhahsjohX235oqwJa-zVr4c",
+    technologies: ["python", "pandas", "numpy", "Deep learning", "Tensorflow"],
+  },
+  {
+    id: "10",
+    title: "Sentiment Analysis",
+    description:
+      "Sentiment Analysis, A Reccurent-based deep learning project classifying Sentiments.",
+      imageUrl: "/10.png",
+    projectUrl:
+      "https://colab.research.google.com/drive/1ESxyAc46Mw6GKlog-IjzaZL9LmQgfdRX#scrollTo=cbXq3wsNSD9_",
+    technologies: ["python", "pandas", "numpy", "ML", "NLP"],
+  },
+  {
+    id: "11",
+    title: "scraping",
+    description: "scraping, A scraping methods in python.",
+    imageUrl: "/11.png",
+    projectUrl:
+      "https://colab.research.google.com/drive/1KW-AzgFb_WpebgqH8lcvxLbgvaUJICDs",
+    technologies: ["python", "pandas", "numpy", "NLP"],
+  },
 ];
 
 export const experiences: Experience[] = [
   {
     id: "1",
-    company: "Tech Innovations Inc.",
-    position: "Senior Developer",
-    duration: "2021 - Present",
-    description: "Lead developer for the company's flagship product, managing a team of 5 developers and implementing major feature enhancements."
+    company: "Nathealth",
+    position: "Trainee Business Intelligence analysts",
+    duration: "September 2024 – November 2024",
+    description:
+      "Gained experience in organizing and visualizing data using tools such as Power BI",
   },
   {
     id: "2",
-    company: "Digital Solutions Ltd.",
-    position: "Web Developer",
-    duration: "2018 - 2021",
-    description: "Developed and maintained multiple client websites, implemented responsive designs, and improved site performance."
+    company: "correlation-one",
+    position: "Trainee as data analysts",
+    duration: "August 2024 –May 2025",
+    description:
+      "train for entail tools for data analysis (python, excel, Tableau, SQL, Looker Studio)",
   },
   {
     id: "3",
-    company: "StartUp Ventures",
-    position: "Junior Developer",
-    duration: "2016 - 2018",
-    description: "Contributed to front-end development for various startup projects, gained experience with modern JavaScript frameworks."
-  }
+    company: "Dot academy",
+    position: "Trainee as data analysts",
+    duration: "December 2024 – March2025",
+    description:
+      "Gained experience dealing with python web framework like djang and flask.",
+  },
 ];
 
 export const testimonials: Testimonial[] = [
   {
     id: "1",
-    name: "Sarah Williams",
-    position: "Project Manager",
-    company: "Tech Innovations Inc.",
-    quote: "Alex consistently delivers high-quality work ahead of schedule. Their attention to detail and problem-solving skills make them an invaluable team member.",
-    imageUrl: "/placeholder.svg"
+    name: "Sana Ali",
+    position: "Training Manager",
+    company: "Correction-one",
+    quote:
+      "Abdel Rahman Abu Assi excelled in the Tech for Jobs Fellowship, demonstrating strong teamwork, communication, and technical skills. He's adaptable, innovative, and effectively communicates complex data insights. Contact me at sana.ali@correlation-one.com.",
+    imageUrl: "/c1.jpg",
   },
   {
     id: "2",
-    name: "Michael Chen",
-    position: "CTO",
-    company: "Digital Solutions Ltd.",
-    quote: "Working with Alex was a pleasure. They quickly understand complex requirements and transform them into elegant, efficient solutions.",
-    imageUrl: "/placeholder.svg"
+    name: "Rasha Mohammed Nairn Saadeh",
+    position: "Student activities and programs coordinator",
+    company: "Hayat Fund",
+    quote:
+      "I recommend Abdalrahman Abuassi, an outstanding Hayat fund student, who demonstrated good qualities, creative ideas, and a strong work ethic. Contact me at Rasha@hayatdund.org",
+    imageUrl: "/fund.jpg",
   },
   {
     id: "3",
-    name: "Emma Rodriguez",
-    position: "CEO",
-    company: "StartUp Ventures",
-    quote: "Alex's contributions were key to our successful product launch. Their technical expertise and dedication to quality set them apart.",
-    imageUrl: "/placeholder.svg"
-  }
+    name: "Dr. Amneh Alamleh",
+    position:
+      "Lecturer at Data Science and Artificial Intelligence Department",
+    company: "Zarqa University",
+    quote:
+      "I highly recommend Abdalrahman Abuassi. As his professor, I was impressed by his intellect, analytical skills, and passion for AI. He consistently exceeded expectations with his academic achievements, demonstrating diligence, critical thinking, and a commitment to excellence. Abdalrahman excels at creative problem-solving and has strong communication skills.",
+    imageUrl: "/zu.jpg",
+  },
 ];
 
 export const contactInfo: ContactInfo = {
-  email: "alex@example.com",
-  phone: "(123) 456-7890",
-  location: "San Francisco, CA",
-  linkedin: "https://linkedin.com/in/alexjohnson",
-  github: "https://github.com/alexjohnson",
-  twitter: "https://twitter.com/alexjohnson"
+  email: "abu2002assi@gmail.com",
+  phone: "+962781277516",
+  location: "Jordan, Amman",
 };
 
 export const vision: Vision[] = [
   {
     id: "1",
-    title: "Data-Driven Decision Making",
-    description: "I believe in transforming raw data into actionable insights that drive strategic business decisions. My vision is to help organizations leverage the power of data science to uncover hidden patterns and create competitive advantages."
+    title: "Exploring Machine Learning Models",
+    description: "Building and optimizing ML models for real-world applications.",
   },
   {
     id: "2",
-    title: "Ethical AI Development",
-    description: "I am committed to developing AI solutions that are transparent, fair, and respectful of privacy. My goal is to create systems that amplify human capabilities while maintaining strong ethical standards."
+    title: "Data Visualization Enthusiast",
+    description:
+      "Passionate about transforming complex data into clear, compelling visual stories.",
   },
   {
     id: "3",
-    title: "Democratizing Data Science",
-    description: "I envision a future where data science tools and knowledge are accessible to everyone. By creating user-friendly solutions and sharing knowledge, I aim to empower individuals across all levels of technical expertise."
-  }
+    title: "Client relationship",
+    description:
+      "I focus on building strong client relationships through transparent and effective communication.",
+  },
 ];
 
 export const skills: Skill[] = [
-  { id: "1", name: "SQL", proficiency: 90, category: "Database" },
-  { id: "2", name: "Python", proficiency: 95, category: "Programming" },
-  { id: "3", name: "pandas", proficiency: 85, category: "Data Analysis" },
-  { id: "4", name: "numpy", proficiency: 80, category: "Data Analysis" },
-  { id: "5", name: "TensorFlow", proficiency: 75, category: "Machine Learning" },
-  { id: "6", name: "Excel", proficiency: 90, category: "Business Tools" },
-  { id: "7", name: "Power BI", proficiency: 85, category: "Visualization" },
-  { id: "8", name: "Tableau", proficiency: 80, category: "Visualization" },
-  { id: "9", name: "Django", proficiency: 70, category: "Web Development" },
-  { id: "10", name: "NLP", proficiency: 65, category: "Machine Learning" }
+  { id: "1", name: "SQL", proficiency: 90, category: "Skills" },
+  { id: "2", name: "Database", proficiency: 90, category: "Skills" },
+  { id: "3", name: "Python", proficiency: 95, category: "Skills" },
+  { id: "4", name: "Programming", proficiency: 95, category: "Skills" },
+  { id: "5", name: "pandas", proficiency: 85, category: "Skills" },
+  { id: "6", name: "Data Analysis", proficiency: 90, category: "Skills" },
+  { id: "7", name: "Power BI", proficiency: 85, category: "Skills" },
+  { id: "8", name: "Visualization", proficiency: 80, category: "Skills" },
+  { id: "9", name: "Tableau", proficiency: 80, category: "Skills" },
+  { id: "10", name: "Django", proficiency: 70, category: "Skills" },
+  { id: "11", name: "Web Development", proficiency: 70, category: "Skills" },
+  { id: "12", name: "NLP", proficiency: 65, category: "Skills" },
+  { id: "13", name: "Machine Learning", proficiency: 75, category: "Skills" },
 ];
 
 export const companies: Company[] = [
@@ -133,7 +236,7 @@ export const companies: Company[] = [
     description: "A leading technology corporation specializing in cloud solutions.",
     logoUrl: "/placeholder.svg",
     website: "https://example.com/techcorp"
-  },
+  }, 
   {
     id: "2",
     name: "DataInsights",
@@ -148,4 +251,7 @@ export const companies: Company[] = [
     logoUrl: "/placeholder.svg",
     website: "https://example.com/aisolutions"
   }
-];
+]
+
+
+
