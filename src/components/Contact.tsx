@@ -106,7 +106,7 @@ const Contact = () => {
                 <div className="flex space-x-4">
                   {contactInfo.linkedin && (
                     <motion.a 
-                      href={contactInfo.linkedin} 
+                      href="https://www.linkedin.com/in/abd-abuassi/"
                       target="_blank" 
                       rel="noopener noreferrer" 
                       className="text-gray-400 hover:text-blue-400 transition-colors"
@@ -117,6 +117,17 @@ const Contact = () => {
                       <Linkedin className="h-6 w-6" />
                     </motion.a>
                   )}
+                  <motion.a
+                        href="https://www.linkedin.com/in/abd-abuassi/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-blue-400 transition-colors"
+                        aria-label="LinkedIn Profile"
+                        whileHover={{ y: -5, color: "#0077B5" }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      >
+                        <Linkedin className="h-6 w-6" />
+                      </motion.a>
                 </div>
               </div>
               
