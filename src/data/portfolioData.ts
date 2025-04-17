@@ -13,7 +13,7 @@ export const personalInfo: PersonalInfo = {
   name: "Abdelrahman Abuassi",
   title: "Data Scientist",
   bio: "AI and Data Science enthusiast with a strong background in data analysis, machine learning, and web development. Experienced in building intelligent systems and interactive dashboards using tools like Python, SQL, React, and Power BI. Passionate about creating impactful tech solutions that solve real-world problems.",
-  imageUrl: "/favicon.jpg",
+  imageUrl: "/abd.jpg",
 };
 
 export const vision: Vision[] = [
