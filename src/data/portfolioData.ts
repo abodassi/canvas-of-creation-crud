@@ -196,6 +196,7 @@ export const contactInfo: ContactInfo = {
   email: "abu2002assi@gmail.com",
   phone: "+962781277516",
   location: "Jordan, Amman",
+  linkedin: "https://www.linkedin.com/in/abd-abuassi/"
 };
 
 export const companies: Company[] = [
