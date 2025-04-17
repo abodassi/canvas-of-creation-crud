@@ -6,6 +6,7 @@ import { personalInfo as defaultPersonalInfo, projects as defaultProjects, exper
          testimonials as defaultTestimonials, contactInfo as defaultContactInfo, vision as defaultVision,
          skills as defaultSkills } from '../data/portfolioData';
 import { PersonalInfo, Project, Experience, Testimonial, ContactInfo, Vision, Skill } from '../types';
+import { usePortfolioData } from '../components/DataProvider';
 
 // Import refactored components
 import PersonalInfoSection from '../components/admin/PersonalInfoSection';
@@ -17,70 +18,83 @@ import TestimonialsSection from '../components/admin/TestimonialsSection';
 import ContactSection from '../components/admin/ContactSection';
 
 const Admin = () => {
-  // Initialize state from localStorage or default data
-  const [personalData, setPersonalData] = useState<PersonalInfo>(() => {
-    const saved = localStorage.getItem('personalInfo');
-    return saved ? JSON.parse(saved) : defaultPersonalInfo;
-  });
-  
-  const [projectsData, setProjectsData] = useState<Project[]>(() => {
-    const saved = localStorage.getItem('projects');
-    return saved ? JSON.parse(saved) : defaultProjects;
-  });
-  
-  const [experiencesData, setExperiencesData] = useState<Experience[]>(() => {
-    const saved = localStorage.getItem('experiences');
-    return saved ? JSON.parse(saved) : defaultExperiences;
-  });
-  
-  const [testimonialsData, setTestimonialsData] = useState<Testimonial[]>(() => {
-    const saved = localStorage.getItem('testimonials');
-    return saved ? JSON.parse(saved) : defaultTestimonials;
-  });
-  
-  const [contactData, setContactData] = useState<ContactInfo>(() => {
-    const saved = localStorage.getItem('contactInfo');
-    return saved ? JSON.parse(saved) : defaultContactInfo;
-  });
-  
-  const [visionData, setVisionData] = useState<Vision[]>(() => {
-    const saved = localStorage.getItem('vision');
-    return saved ? JSON.parse(saved) : defaultVision;
-  });
-  
-  const [skillsData, setSkillsData] = useState<Skill[]>(() => {
-    const saved = localStorage.getItem('skills');
-    return saved ? JSON.parse(saved) : defaultSkills;
-  });
-  
-  // Save to localStorage whenever data changes
+  const { 
+    personalInfo: dataPersonalInfo, 
+    projects: dataProjects, 
+    experiences: dataExperiences, 
+    testimonials: dataTestimonials, 
+    contactInfo: dataContactInfo, 
+    vision: dataVision, 
+    skills: dataSkills,
+    updateData 
+  } = usePortfolioData();
+
+  // Initialize state from context data
+  const [personalData, setPersonalData] = useState<PersonalInfo>(dataPersonalInfo);
+  const [projectsData, setProjectsData] = useState<Project[]>(dataProjects);
+  const [experiencesData, setExperiencesData] = useState<Experience[]>(dataExperiences);
+  const [testimonialsData, setTestimonialsData] = useState<Testimonial[]>(dataTestimonials);
+  const [contactData, setContactData] = useState<ContactInfo>(dataContactInfo);
+  const [visionData, setVisionData] = useState<Vision[]>(dataVision);
+  const [skillsData, setSkillsData] = useState<Skill[]>(dataSkills);
+
+  // Update context data when local state changes
   useEffect(() => {
-    localStorage.setItem('personalInfo', JSON.stringify(personalData));
-  }, [personalData]);
+    updateData('personalInfo', personalData);
+  }, [personalData, updateData]);
   
   useEffect(() => {
-    localStorage.setItem('projects', JSON.stringify(projectsData));
-  }, [projectsData]);
+    updateData('projects', projectsData);
+  }, [projectsData, updateData]);
   
   useEffect(() => {
-    localStorage.setItem('experiences', JSON.stringify(experiencesData));
-  }, [experiencesData]);
+    updateData('experiences', experiencesData);
+  }, [experiencesData, updateData]);
   
   useEffect(() => {
-    localStorage.setItem('testimonials', JSON.stringify(testimonialsData));
-  }, [testimonialsData]);
+    updateData('testimonials', testimonialsData);
+  }, [testimonialsData, updateData]);
   
   useEffect(() => {
-    localStorage.setItem('contactInfo', JSON.stringify(contactData));
-  }, [contactData]);
+    updateData('contactInfo', contactData);
+  }, [contactData, updateData]);
   
   useEffect(() => {
-    localStorage.setItem('vision', JSON.stringify(visionData));
-  }, [visionData]);
+    updateData('vision', visionData);
+  }, [visionData, updateData]);
   
   useEffect(() => {
-    localStorage.setItem('skills', JSON.stringify(skillsData));
-  }, [skillsData]);
+    updateData('skills', skillsData);
+  }, [skillsData, updateData]);
+
+  // Update local state when context data changes
+  useEffect(() => {
+    setPersonalData(dataPersonalInfo);
+  }, [dataPersonalInfo]);
+  
+  useEffect(() => {
+    setProjectsData(dataProjects);
+  }, [dataProjects]);
+  
+  useEffect(() => {
+    setExperiencesData(dataExperiences);
+  }, [dataExperiences]);
+  
+  useEffect(() => {
+    setTestimonialsData(dataTestimonials);
+  }, [dataTestimonials]);
+  
+  useEffect(() => {
+    setContactData(dataContactInfo);
+  }, [dataContactInfo]);
+  
+  useEffect(() => {
+    setVisionData(dataVision);
+  }, [dataVision]);
+  
+  useEffect(() => {
+    setSkillsData(dataSkills);
+  }, [dataSkills]);
 
   // Helper functions
   const generateId = () => Math.random().toString(36).substring(2, 9);

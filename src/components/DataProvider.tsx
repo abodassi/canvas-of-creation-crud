@@ -12,6 +12,7 @@ interface PortfolioDataContextType {
   vision: Vision[];
   skills: Skill[];
   companies: Company[];
+  updateData: (key: string, value: any) => void;
 }
 
 const PortfolioDataContext = createContext<PortfolioDataContextType>({
@@ -22,13 +23,17 @@ const PortfolioDataContext = createContext<PortfolioDataContextType>({
   contactInfo: defaultContactInfo,
   vision: defaultVision,
   skills: defaultSkills,
-  companies: defaultCompanies
+  companies: defaultCompanies,
+  updateData: () => {}
 });
 
 export const usePortfolioData = () => useContext(PortfolioDataContext);
 
+// Setup a custom event for data updates
+const DATA_UPDATED_EVENT = 'portfolio_data_updated';
+
 export const DataProvider = ({ children }: { children: ReactNode }) => {
-  const [data, setData] = useState<PortfolioDataContextType>({
+  const [data, setData] = useState<Omit<PortfolioDataContextType, 'updateData'>>({
     personalInfo: defaultPersonalInfo,
     projects: defaultProjects,
     experiences: defaultExperiences,
@@ -60,10 +65,59 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
       skills: loadedSkills ? JSON.parse(loadedSkills) : defaultSkills,
       companies: loadedCompanies ? JSON.parse(loadedCompanies) : defaultCompanies
     });
+
+    // Setup event listener for data updates from other tabs/windows
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key && ['personalInfo', 'projects', 'experiences', 'testimonials', 'contactInfo', 'vision', 'skills', 'companies'].includes(e.key)) {
+        if (e.newValue) {
+          // Update the specific data that changed
+          setData(prevData => ({
+            ...prevData,
+            [e.key!]: JSON.parse(e.newValue!)
+          }));
+        }
+      }
+    };
+
+    // Listen for storage events (when localStorage changes in other tabs)
+    window.addEventListener('storage', handleStorageChange);
+
+    // Listen for custom data update events (when localStorage changes in the same tab)
+    window.addEventListener(DATA_UPDATED_EVENT, (e: any) => {
+      const { key, value } = e.detail;
+      if (key && value) {
+        setData(prevData => ({
+          ...prevData,
+          [key]: value
+        }));
+      }
+    });
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener(DATA_UPDATED_EVENT, (e: any) => {});
+    };
   }, []);
 
+  // Function to update data and sync across tabs
+  const updateData = (key: string, value: any) => {
+    // Update localStorage
+    localStorage.setItem(key, JSON.stringify(value));
+    
+    // Update local state
+    setData(prevData => ({
+      ...prevData,
+      [key]: value
+    }));
+    
+    // Dispatch a custom event for other components in the same tab
+    window.dispatchEvent(new CustomEvent(DATA_UPDATED_EVENT, { 
+      detail: { key, value } 
+    }));
+  };
+
   return (
-    <PortfolioDataContext.Provider value={data}>
+    <PortfolioDataContext.Provider value={{ ...data, updateData }}>
       {children}
     </PortfolioDataContext.Provider>
   );
