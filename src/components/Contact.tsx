@@ -99,23 +99,23 @@ const Contact = () => {
                     <MapPin className="h-5 w-5 text-blue-500 mr-3" />
                     <span className="text-gray-300">{contactInfo.location}</span>
                   </motion.div>
-                </div>
-                
-                <h3 className="text-xl font-bold mt-8 mb-4 text-blue-400">Social Media</h3>
-                <div className="flex space-x-4">
-                  {contactInfo.linkedin && (
-                    <motion.a 
-                      href={contactInfo.linkedin} 
+                  
+                  <motion.div 
+                    className="flex items-center group"
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    <Linkedin className="h-5 w-5 text-blue-500 mr-3" />
+                    <a 
+                      href="https://www.linkedin.com/in/abd-abuassi/" 
                       target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="text-gray-400 hover:text-blue-400 transition-colors"
-                      aria-label="LinkedIn"
-                      whileHover={{ y: -5, color: "#0077B5" }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      rel="noopener noreferrer"
+                      className="text-gray-300 group-hover:text-white transition-colors"
                     >
-                      <Linkedin className="h-6 w-6" />
-                    </motion.a>
-                  )}
+                      Connect on LinkedIn
+                    </a>
+                  </motion.div>
+                  
                 </div>
               </div>
               
