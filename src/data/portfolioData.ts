@@ -20,17 +20,17 @@ export const vision: Vision[] = [
   {
     id: "1",
     title: "Exploring Machine Learning Models",
-    description: "Building and optimizing ML models for real-world applications.",
+    description: "Build and optimize ML models for real-world applications.",
   },
   {
     id: "2",
     title: "Data Visualization Enthusiast",
-    description: "Passionate about transforming complex data into clear, compelling visual stories.",
+    description: "Transform complex data into clear, compelling visual stories.",
   },
   {
     id: "3",
     title: "Client relationship",
-    description: "I focus on building strong client relationships through transparent and effective communication.",
+    description: "Build strong client relationships through transparent and effective communication.",
   },
 ];
 
@@ -144,7 +144,7 @@ export const projects: Project[] = [
 export const experiences: Experience[] = [
   {
     id: "1",
-    company: "Nathealth",
+    company: "NatHealth",
     position: "Trainee Business Intelligence analysts",
     duration: "September 2024 – November 2024",
     description: "Gained experience in organizing and visualizing data using tools such as Power BI",
@@ -154,11 +154,11 @@ export const experiences: Experience[] = [
     company: "correlation-one",
     position: "Trainee as data analysts",
     duration: "August 2024 –May 2025",
-    description: "train for entail tools for data analysis (python, excel, Tableau, SQL, Looker Studio)",
+    description: "trained for essential tools for data analysis (python, excel, Tableau, SQL, Looker Studio)",
   },
   {
     id: "3",
-    company: "Dot academy",
+    company: "Dot Academy",
     position: "Trainee as data analysts",
     duration: "December 2024 – March2025",
     description: "Gained experience dealing with python web framework like djang and flask.",
