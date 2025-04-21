@@ -9,7 +9,7 @@ const Experience = () => {
   return (
     <section id="experience" className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-12 text-center">Work Experience</h2>
+        <h2 className="text-3xl font-bold mb-12 text-center" style={{ color: 'rgb(37, 99, 234)' }}>Work Experience</h2>
         <div className="space-y-8 max-w-3xl mx-auto">
           {experiences.map((experience) => (
             <Card key={experience.id} className="border-l-4 border-l-primary">
