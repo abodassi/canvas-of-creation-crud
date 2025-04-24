@@ -147,6 +147,14 @@ export const projects: Project[] = [
     projectUrl: "https://bmc5qhhnrjbkhdapppuounr.streamlit.app/",
     technologies: ["python", "pandas", "Numpy", "NLP","Streamlit", "web dev","html", "CSS", "js"],
   },
+   {
+    id: "13",
+    title: "home  price prediction",
+    description: "tableau dashboard for California houseing price   🏘.",
+    imageUrl: "/13.png",
+    projectUrl: "https://bmc5qhhnrjbkhdapppuounr.streamlit.app/",
+    technologies: ["tablue","Excel","EDA"],
+  },
 ];
 
 export const experiences: Experience[] = [
