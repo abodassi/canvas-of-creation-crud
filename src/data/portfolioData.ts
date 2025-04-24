@@ -81,7 +81,7 @@ export const projects: Project[] = [
     description: "A machine learning project predicting real estate prices using regression models.",
     imageUrl: "/4.png",
     projectUrl: "https://colab.research.google.com/drive/1sD8eXi6o2DV0Dj3cNUCkIS-QBcWF5V9g",
-    technologies: ["python", "pandas", "numpy", "ML"],
+    technologies: ["python", "pandas", "Numpy", "ML"],
   },
   {
     id: "5",
@@ -105,7 +105,7 @@ export const projects: Project[] = [
     description: "A machine learning model predicting depression levels based on survey data.",
     imageUrl: "/7.png",
     projectUrl: "https://colab.research.google.com/drive/10z0l-v_FVQD5gui3fhiQKS5wcs2R0NER",
-    technologies: ["python", "pandas", "numpy", "ML"],
+    technologies: ["python", "pandas", "Numpy", "ML"],
   },
   {
     id: "8",
@@ -113,7 +113,7 @@ export const projects: Project[] = [
     description: "A CNN-based deep learning project classifying images of dogs and cats.",
     imageUrl: "/8.png",
     projectUrl: "https://colab.research.google.com/drive/16FfUXbdmgaKfoslY1rDRRscUeOS7tO8M",
-    technologies: ["python", "pandas", "numpy", "Deep Learning", "Tensorflow"],
+    technologies: ["python", "pandas", "Numpy", "Deep Learning", "Tensorflow"],
   },
   {
     id: "9",
@@ -121,7 +121,7 @@ export const projects: Project[] = [
     description: "A CNN-based deep learning project classifying images of Cars and Motors.",
     imageUrl: "/9.png",
     projectUrl: "https://colab.research.google.com/drive/1iVOTuuWwWwhahsjohX235oqwJa-zVr4c",
-    technologies: ["python", "pandas", "numpy", "Deep learning", "Tensorflow"],
+    technologies: ["python", "pandas", "Numpy", "Deep learning", "Tensorflow"],
   },
   {
     id: "10",
@@ -129,7 +129,7 @@ export const projects: Project[] = [
     description: "A Reccurent-based deep learning project classifying Sentiments.",
     imageUrl: "/10.png",
     projectUrl: "https://colab.research.google.com/drive/1ESxyAc46Mw6GKlog-IjzaZL9LmQgfdRX#scrollTo=cbXq3wsNSD9_",
-    technologies: ["python", "pandas", "numpy", "ML", "NLP"],
+    technologies: ["python", "pandas", "  Numpy", "ML", "NLP"],
   },
   {
     id: "11",
@@ -137,7 +137,15 @@ export const projects: Project[] = [
     description: "A scraping methods in python.",
     imageUrl: "/11.png",
     projectUrl: "https://colab.research.google.com/drive/1KW-AzgFb_WpebgqH8lcvxLbgvaUJICDs",
-    technologies: ["python", "pandas", "numpy", "NLP"],
+    technologies: ["python", "pandas", "Numpy", "NLP"],
+  },
+  {
+    id: "12",
+    title: "home  price prediction",
+    description: "a web app that predicte California house price  🏘.",
+    imageUrl: "/real-estat.png",
+    projectUrl: "https://bmc5qhhnrjbkhdapppuounr.streamlit.app/",
+    technologies: ["python", "pandas", "Numpy", "NLP","Streamlit", "web dev","html", "CSS", "js"],
   },
 ];
 
@@ -160,7 +168,7 @@ export const experiences: Experience[] = [
     id: "3",
     company: "Dot Academy",
     position: "Trainee as data analysts",
-    duration: "December 2024 – March2025",
+    duration: "December 2024 – March 2025",
     description: "Gained experience dealing with python web framework like djang and flask.",
   },
 ];
