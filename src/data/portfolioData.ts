@@ -149,7 +149,7 @@ export const projects: Project[] = [
   },
    {
     id: "13",
-    title: "home  price prediction",
+    title: "California housing price Dashboard",
     description: "tableau dashboard for California houseing price   🏘.",
     imageUrl: "/13.png",
     projectUrl: "https://bmc5qhhnrjbkhdapppuounr.streamlit.app/",
