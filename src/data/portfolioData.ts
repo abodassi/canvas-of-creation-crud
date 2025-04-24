@@ -80,7 +80,7 @@ export const projects: Project[] = [
     title: "Real Estate Price Prediction",
     description: "A machine learning project predicting real estate prices using regression models.",
     imageUrl: "/4.png",
-    projectUrl: "https://colab.research.google.com/drive/1sD8eXi6o2DV0Dj3cNUCkIS-QBcWF5V9g",
+    projectUrl: "https://colab.research.google.com/drive/1CklHXok5uRZzBkpT9-Xbcv1B5Lq1MMAf#scrollTo=SlpXEor11qLD",
     technologies: ["python", "pandas", "Numpy", "ML"],
   },
   {
