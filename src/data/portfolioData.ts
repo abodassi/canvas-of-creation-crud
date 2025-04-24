@@ -152,7 +152,7 @@ export const projects: Project[] = [
     title: "California housing price Dashboard",
     description: "tableau dashboard for California houseing price   🏘.",
     imageUrl: "/13.png",
-    projectUrl: "https://bmc5qhhnrjbkhdapppuounr.streamlit.app/",
+    projectUrl: "https://public.tableau.com/views/California_dashboard_17454963421330/proximitydash?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link",
     technologies: ["tablue","Excel","EDA"],
   },
 ];
