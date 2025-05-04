@@ -14,9 +14,9 @@ const Index = () => {
   const { personalInfo } = usePortfolioData();
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
+    <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 to-black text-white overflow-hidden">
       <Header />
-      <main>
+      <main className="w-full">
         <Introduction />
         <Vision />
         <Skills />
@@ -25,7 +25,7 @@ const Index = () => {
         <Testimonials />
         <Contact />
       </main>
-      <footer className="bg-black bg-opacity-70 text-white py-8">
+      <footer className="bg-black bg-opacity-70 text-white py-8 w-full">
         <div className="container mx-auto px-4 text-center">
           <p>&copy; {new Date().getFullYear()} {personalInfo.name}. All rights reserved.</p>
         </div>
